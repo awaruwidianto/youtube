@@ -91,9 +91,9 @@
     }
     body::after {
       background:
-        radial-gradient(circle at 12% 72%, rgba(255,255,255,.26), transparent 13%),
-        radial-gradient(circle at 74% 14%, rgba(255,255,255,.22), transparent 16%),
-        radial-gradient(circle at 88% 82%, rgba(255,255,255,.18), transparent 19%);
+        radial-gradient(circle at 12% 72%, rgba(255, 255, 255, .26), transparent 13%),
+        radial-gradient(circle at 74% 14%, rgba(255, 255, 255, .22), transparent 16%),
+        radial-gradient(circle at 88% 82%, rgba(255, 255, 255, .18), transparent 19%);
       filter: blur(2px);
       animation: nebulaPulse 12s ease-in-out infinite alternate;
     }
@@ -1393,7 +1393,7 @@
       updateHud(32 + state.storyIndex * 18, 1);
     }
 
-    UX.typeText = function(element, text) {
+    function typeText(element, text) {
       clearInterval(state.typingTimer);
       element.innerHTML = "";
       let index = 0;
@@ -1410,7 +1410,6 @@
         }
       }, 23);
     }
-    const typeText = UX.typeText;
 
     function nextStoryStep() {
       if (state.storyIndex < t().story.length - 1) {
