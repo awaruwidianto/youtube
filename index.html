@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AWARU UNIVERSE - Pixel Galaxy Quest</title>
-  <meta name="description" content="A cozy pixel galaxy adventure by Awaru, a foreign creator chasing his dreams." />
+  <title>AWARU UNIVERSE</title>
+  <meta name="description" content="" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Nunito:wght@400;600;700;800;900&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Nunito:wght@400;600;700;800;900&family=Pixelify+Sans:wght@500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     :root {
@@ -30,6 +30,7 @@
       --font-title: "Pixelify Sans", system-ui, sans-serif;
       --font-body: "Nunito", system-ui, sans-serif;
       --font-ko: "Gaegu", "M PLUS Rounded 1c", system-ui, sans-serif;
+      --font-ko-title: "Jua", "Gaegu", system-ui, sans-serif;
     }
 
     * { box-sizing: border-box; text-transform: lowercase; }
@@ -52,6 +53,23 @@
 
     body.lang-ko {
       font-family: var(--font-ko);
+      font-size: 1.12rem;
+    }
+
+    body.lang-ko h1,
+    body.lang-ko h2,
+    body.lang-ko .big-title,
+    body.lang-ko .panel-title,
+    body.lang-ko .choice-name,
+    body.lang-ko .hub-workspace .hub-planet strong,
+    body.lang-ko .dock-button {
+      font-family: var(--font-ko-title) !important;
+      letter-spacing: 0.02em;
+    }
+
+    body.lang-ko #story-text {
+      font-size: clamp(17px, 2.2vw, 22px);
+      line-height: 1.5;
     }
 
     body::before, body::after {
@@ -1014,7 +1032,8 @@
         toastClear: "space mail cleared ✨",
         identityHeader: "player stats & identity",
         identityBio1: "4th year student at Korea University of Media Arts",
-        identityBio2: "chasing the ultimate dream: collaborating with SM Entertainment artists!"
+        identityBio2: "chasing the ultimate dream: collaborating with SM Entertainment artists!",
+        backPlanet: "◀ planet"
       },
       ko: {
         htmlLang: "ko",
@@ -1109,7 +1128,8 @@
         toastClear: "우주 우편 내용이 삭제되었습니다 ✨",
         identityHeader: "플레이어 정보 & 프로필",
         identityBio1: "한국영상대학교 4학년 재학 중",
-        identityBio2: "최종 목표: SM 엔터테인먼트 아티스트와 콜라보 성사시키기!"
+        identityBio2: "최종 목표: SM 엔터테인먼트 아티스트와 콜라보 성사시키기!",
+        backPlanet: "◀ 행성"
       }
     };
 
@@ -1244,6 +1264,14 @@
       playSound("level");
     }
 
+    function updateLanguageTickerText(years, diffDays) {
+      const textPattern = state.currentLang === "ko" 
+        ? `${years}년 ${diffDays}일 차`
+        : `${years}y ${diffDays}d`;
+        
+      setText("player-age-ticker", textPattern);
+    }
+
     function calculateAgeInDays() {
       const birthDate = new Date(2000, 2, 20);
       const now = new Date();
@@ -1259,11 +1287,7 @@
       const diffTime = Math.abs(now - birthAnniversary);
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
       
-      const textPattern = state.currentLang === "ko" 
-        ? `${years}년 ${diffDays}일 차`
-        : `${years}y ${diffDays}d`;
-        
-      setText("player-age-ticker", textPattern);
+      updateLanguageTickerText(years, diffDays);
     }
 
     function applyLocalization() {
@@ -1346,6 +1370,7 @@
 
       setText("sound-toggle", state.soundEnabled ? data.soundOn : data.soundOff);
       setText("motion-toggle", document.body.classList.contains("reduced-motion") ? data.motionOff : data.motionOn);
+      setText("back-to-planet", data.backPlanet);
 
       $("#sender-name").placeholder = data.namePlaceholder;
       $("#sender-msg").placeholder = data.messagePlaceholder;
@@ -1605,7 +1630,7 @@
       printWindow.document.write(`
         <html>
         <head>
-          <title>${t().pdfTitle}</title>
+          <title>\${t().pdfTitle}</title>
           <style>
             @page { size: auto; margin: 0; }
             body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }
@@ -1613,7 +1638,7 @@
           </style>
         </head>
         <body>
-          <img src="${dataUrl}" onload="setTimeout(() => { window.print(); window.close(); }, 250);">
+          <img src="\${dataUrl}" onload="setTimeout(() => { window.print(); window.close(); }, 250);">
         </body>
         </html>
       `);
@@ -1775,11 +1800,11 @@
         if (document.getElementById("launch-overlay").classList.contains("active")) return;
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
-        $("#app-shell").style.transform = `scale(0.8) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
+        $("#app-shell").style.transform = `scale(0.8) rotateY(\${x * 1.2}deg) rotateX(\${-y * 1.2}deg)`;
         $$('[data-depth]').forEach(el => {
           const depth = Number(el.dataset.depth || 0);
-          el.style.marginLeft = `${x * depth * 80}px`;
-          el.style.marginTop = `${y * depth * 80}px`;
+          el.style.marginLeft = `\${x * depth * 80}px`;
+          el.style.marginTop = `\${y * depth * 80}px`;
         });
       });
       document.addEventListener("keydown", handleKonami);
