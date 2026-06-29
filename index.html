@@ -32,7 +32,8 @@
       --font-ko: "M PLUS Rounded 1c", "Nunito", system-ui, sans-serif;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; text-transform: lowercase; }
+    h1, h2, .big-title, .panel-title { text-transform: uppercase !important; }
     html { min-height: 100%; scroll-behavior: smooth; }
     body {
       margin: 0;
@@ -153,7 +154,7 @@
       position: relative;
       z-index: 3;
     }
-    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; flex-grow: 1; }
     .brand-badge {
       width: 48px; height: 48px; border-radius: 16px;
       display: grid; place-items: center;
@@ -181,20 +182,8 @@
     }
     .planet-nav-btn:hover { background: #fff; transform: translateY(-1px); }
     
-    .hud { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-    .hud-pill {
-      min-width: 78px;
-      padding: 8px 11px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.66);
-      border: 2px solid rgba(86,65,121,.22);
-      box-shadow: 0 5px 0 rgba(86,65,121,.12);
-      font-size: 12px;
-      font-weight: 900;
-      color: #4a3a74;
-    }
-    .hud-pill span { display: block; font-family: var(--font-title); font-size: 13px; color: #7c5dff; }
-    .xp-wrap { width: min(210px, 32vw); height: 18px; padding: 3px; border-radius: 999px; background: rgba(71,52,118,.22); border: 2px solid rgba(86,65,121,.45); }
+    .hud { display: flex; align-items: center; justify-content: flex-end; flex-grow: 1; max-width: 400px; }
+    .xp-wrap { width: 100%; height: 18px; padding: 3px; border-radius: 999px; background: rgba(71,52,118,.22); border: 2px solid rgba(86,65,121,.45); }
     .xp-fill { width: 14%; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #8ee7ff, #ff94cf, #ffe58f); box-shadow: 0 0 14px rgba(255,148,207,.6); transition: width .8s cubic-bezier(.2,.9,.2,1); }
 
     .screen {
@@ -229,7 +218,6 @@
       font-family: var(--font-title);
       color: #6a4ddb;
       box-shadow: 0 5px 0 rgba(86,65,121,.22);
-      text-transform: uppercase;
       font-size: 13px;
       font-weight: 700;
     }
@@ -256,9 +244,9 @@
     .planet-choice::after { content: "✦ ✧ ✦"; position: absolute; top: 16px; right: 16px; color: rgba(119,87,225,.5); font-family: var(--font-title); }
     .planet-choice:hover { transform: translateY(-10px) rotate(-1deg) scale(1.03); filter: saturate(120%); box-shadow: 0 12px 0 rgba(70,49,117,.25), 0 0 36px rgba(255,255,255,.76); }
     .planet-choice:active { transform: translateY(0) scale(.98); box-shadow: 0 4px 0 rgba(70,49,117,.25); }
-    .choice-orb { width: 90px; height: 90px; border-radius: 50%; display: grid; place-items: center; border: 4px solid rgba(70,49,117,.50); animation: planetFloat 4.8s ease-in-out infinite; padding: 20px; }
-    .choice-earth .choice-orb { background: radial-gradient(circle at 34% 30%, #ffffff, #8ee7ff 34%, #7f83ff 62%, #b5f7d3); color: #2563eb; }
-    .choice-korea .choice-orb { background: radial-gradient(circle at 34% 30%, #ffffff, #ffbdde 36%, #b7a0ff 68%, #8ee7ff); color: #dc2626; animation-delay: -1s; }
+    .choice-orb { width: 90px; height: 90px; border-radius: 50%; display: grid; place-items: center; border: 4px solid rgba(70,49,117,.50); animation: planetFloat 4.8s ease-in-out infinite; }
+    .choice-earth .choice-orb { background: #3b82f6; color: #2563eb; }
+    .choice-korea .choice-orb { background: #ef4444; color: #dc2626; animation-delay: -1s; }
     .choice-name { font-family: var(--font-title); font-size: 30px; color: #6047d6; }
 
     .story-grid { display: grid; grid-template-columns: minmax(220px, 320px) minmax(0, 1fr); gap: clamp(18px, 4vw, 32px); align-items: center; }
@@ -274,15 +262,8 @@
       position: relative;
       overflow: hidden;
     }
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .avatar-fallback {
-      width: 100%; height: 100%; display: grid; place-items: center; font-weight: 900; color: #fff; background: linear-gradient(45deg, #6d5dfc, #ff94cf); font-size: 14px; padding: 10px; text-align: center;
-    }
+    .avatar-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .avatar-fallback { width: 100%; height: 100%; display: grid; place-items: center; font-weight: 900; color: #fff; background: linear-gradient(45deg, #6d5dfc, #ff94cf); font-size: 14px; padding: 10px; text-align: center; }
     .character-name { font-family: var(--font-title); font-size: 28px; color: #654bdb; margin: 0; }
     .character-class { margin: 4px 0 0; color: var(--ink-soft); font-weight: 900; }
     .dialogue-card { padding: 10px clamp(14px, 3vw, 26px) clamp(18px, 3vw, 28px); }
@@ -301,7 +282,7 @@
     }
     .speech-bubble::after { content: ""; position: absolute; left: -18px; top: 42px; width: 32px; height: 32px; background: rgba(255,249,241,.86); border-left: 3px solid rgba(70,49,117,.62); border-bottom: 3px solid rgba(70,49,117,.62); transform: rotate(45deg); }
     #story-text { margin: 0; font-size: clamp(18px, 2.3vw, 25px); line-height: 1.48; font-weight: 900; color: #3d315f; }
-    .cursor-dot { inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff94cf; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
+    .cursor-dot { display: inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff94cf; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
 
     .game-button, .cute-button {
       display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -473,6 +454,19 @@
     .email-help { display: none; margin-top: 14px; padding: 14px; border-radius: 16px; background: rgba(255,255,255,.66); font-weight: 900; color: var(--ink-soft); }
     .email-help.active { display: block; }
 
+    /* Web Audio API Instagram Unlocker Overlay Layer */
+    #iosAudioUnlocker {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 99999;
+      background: transparent;
+      pointer-events: auto;
+    }
+    #iosAudioUnlocker.activated {
+      pointer-events: none;
+      display: none;
+    }
+
     @keyframes galaxyShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
     @keyframes starDrift { from{transform:translate3d(0,0,0)} to{transform:translate3d(-118px,118px,0)} }
     @keyframes nebulaPulse { from{opacity:.56; transform:scale(1)} to{opacity:.82; transform:scale(1.04)} }
@@ -495,7 +489,7 @@
       .galaxy-stage { padding: 10px; align-items: start; }
       .app-shell { min-height: calc(100vh - 20px); border-radius: 26px; }
       .topbar { align-items: flex-start; flex-direction: column; }
-      .hud { width: 100%; justify-content: space-between; }
+      .hud { width: 100%; max-width: 100%; }
       .xp-wrap { width: 100%; flex: 1 1 100%; }
       .planet-choice-grid, .story-grid, .mail-terminal, .radio-panel { grid-template-columns: 1fr; }
       .planet-choice { min-height: 180px; }
@@ -513,6 +507,8 @@
   </style>
 </head>
 <body>
+  <div id="iosAudioUnlocker"></div>
+
   <div class="cosmic-decoration" aria-hidden="true">
     <button class="star-clicker" type="button" aria-label="collect star"></button>
     <button class="star-clicker" type="button" aria-label="collect star"></button>
@@ -543,17 +539,14 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.13 2.13a2 2 0 0 0-2.26 0L3.34 7.22a2 2 0 0 0-.91 1.67v8.22a2 2 0 0 0 .91 1.67l7.53 5.09a2 2 0 0 0 2.26 0l7.53-5.09a2 2 0 0 0 .91-1.67V8.89a2 2 0 0 0-.91-1.67zM12 4.27l6 4.05v1.93l-6-3.15-6 3.15V8.32zM6 16.51v-4.66l6 3.15 6-3.15v4.66l-6 4.06z"/></svg>
           </div>
           <div>
-            <h1>AWARU UNIVERSE</h1>
+            <h1 id="main-title">AWARU UNIVERSE</h1>
             <button class="planet-nav-btn hidden-section" id="planet-nav-btn" onclick="returnToPlanetSelection()">
               <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-1-14.414V11H7v2h4v3.414l4.707-4.707L11 7.586z"/></svg>
-              preference:
+              <span id="nav-btn-text">preference:</span>
             </button>
           </div>
         </div>
         <div class="hud">
-          <div class="hud-pill">MISSION<span id="mission-label">START</span></div>
-          <div class="hud-pill">LEVEL<span id="level-label">01</span></div>
-          <div class="hud-pill">XP<span id="xp-label">14%</span></div>
           <div class="xp-wrap" aria-label="mission experience progress"><div class="xp-fill" id="xp-fill"></div></div>
         </div>
       </header>
@@ -564,20 +557,16 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l-.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.57-3-3.5s1.07-3.5 3-3.5 3 1.57 3 3.5-1.07 3.5-3 3.5z"/></svg>
             preference:
           </div>
-          <h2 class="big-title" id="language-title">Choose Your Planet</h2>
-          <p class="subtitle">Pick a cozy world and begin Awaru's pastel galaxy adventure.</p>
+          <h2 class="big-title" id="language-title">CHOOSE YOUR PLANET</h2>
+          <p class="subtitle" id="language-subtitle">pick a cozy world and begin awaru's pastel galaxy adventure.</p>
           <div class="planet-choice-grid">
             <button class="planet-choice choice-earth" type="button" onclick="setLanguage('en')" aria-label="Choose English planet">
-              <span class="choice-orb">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              </span>
-              <span class="choice-name">ENGLISH</span>
+              <span class="choice-orb"></span>
+              <span class="choice-name">english</span>
             </button>
             <button class="planet-choice choice-korea" type="button" onclick="setLanguage('ko')" aria-label="Choose Korean planet">
-              <span class="choice-orb">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm-2.5-14.5a2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5V7.5zm2.5 9a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5v5z"/></svg>
-              </span>
-              <span class="choice-name">KOREA</span>
+              <span class="choice-orb"></span>
+              <span class="choice-name">한국어</span>
             </button>
           </div>
         </div>
@@ -588,31 +577,30 @@
           <aside class="pixel-window avatar-card">
             <div class="window-label">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4a1 1 0 0 0 1.25 1.25l2.79-1.62A8.95 8.95 0 0 0 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-              PLAYER
+              <span id="player-label">player</span>
             </div>
             <div class="avatar-bubble" aria-hidden="true">
-              <!-- Linked directly to your loaded image file -->
               <img class="avatar-img" src="profile.jpg" alt="Awaru Profile" onerror="this.style.display='none'; document.getElementById('avatar-err').classList.remove('hidden-section')">
               <div id="avatar-err" class="avatar-fallback hidden-section">@awaru.pdf</div>
             </div>
             <h2 class="character-name">AWARU</h2>
-            <p class="character-class" id="character-class">Pisces • ENFJ • Creator</p>
+            <p class="character-class" id="character-class">pisces • enfj • creator</p>
           </aside>
           <article class="pixel-window dialogue-card">
             <div class="window-label">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-              dialogue
+              <span id="dialogue-label">dialogue</span>
             </div>
             <div class="story-topline">
-              <span class="mission-tag" id="story-heading">MISSION INTRO</span>
+              <span class="mission-tag" id="story-heading">mission intro</span>
               <span id="story-progress">1/3</span>
             </div>
             <div class="speech-bubble" aria-live="polite">
               <p id="story-text"></p>
             </div>
             <div class="button-row">
-              <button onclick="nextStoryStep()" id="next-btn" class="game-button primary-button" type="button">Next ▶</button>
-              <button onclick="skipStory()" id="skip-btn" class="game-button" type="button">Skip to Hub ✨</button>
+              <button onclick="nextStoryStep()" id="next-btn" class="game-button primary-button" type="button">next ▶</button>
+              <button onclick="skipStory()" id="skip-btn" class="game-button" type="button">skip to hub ✨</button>
             </div>
           </article>
         </div>
@@ -625,57 +613,44 @@
         </div>
         
         <div class="hub-map" aria-label="Galaxy hub map">
-          <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
-            <span class="orb orb-patreon">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </span>
-            <strong id="planet-patreon-label">Patreon</strong><small id="planet-patreon-small">portal</small>
-          </button>
           <button class="hub-planet planet-youtube" type="button" data-panel="youtube-panel" aria-label="Open YouTube planet">
             <span class="orb orb-youtube">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.85-.53-5.83A2.9 2.9 0 0 0 20.43 4.1C18.49 3.6 12 3.6 12 3.6s-6.49 0-8.43.51A2.9 2.9 0 0 0 1.53 6.17C1 8.15 1 12 1 12s0 3.85.53 5.83a2.9 2.9 0 0 0 2.04 2.07c1.94.51 8.43.51 8.43.51s6.49 0 8.43-.51a2.9 2.9 0 0 0 2.04-2.07C23 15.85 23 12 23 12zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"/></svg>
             </span>
-            <strong id="planet-youtube-label">YouTube</strong><small id="planet-youtube-small">quests</small>
-          </button>
-          <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
-            <span class="orb orb-letter">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </span>
-            <strong id="planet-letter-label">Letter</strong><small id="planet-letter-small">space mail</small>
+            <strong id="planet-youtube-label">youtube</strong><small id="planet-youtube-small">videos</small>
           </button>
           <button class="hub-planet planet-music" type="button" data-panel="music-panel" aria-label="Open music planet">
             <span class="orb orb-music">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             </span>
-            <strong id="planet-music-label">Music</strong><small id="planet-music-small">radio</small>
+            <strong id="planet-music-label">music</strong><small id="planet-music-small">radio</small>
+          </button>
+          <button class="hub-planet planet-letter" type="button" data-panel="letter-panel" aria-label="Open letter planet">
+            <span class="orb orb-letter">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </span>
+            <strong id="planet-letter-label">letter</strong><small id="planet-letter-small">space mail</small>
+          </button>
+          <button class="hub-planet planet-patreon" type="button" data-panel="patreon-panel" aria-label="Open Patreon planet">
+            <span class="orb orb-patreon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </span>
+            <strong id="planet-patreon-label">patreon</strong><small id="planet-patreon-small">portal</small>
           </button>
           <button class="hub-planet planet-secret" id="secret-planet" type="button" data-panel="secret-panel" aria-label="Open secret planet">
             <span class="orb orb-secret">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </span>
-            <strong id="planet-secret-label">Secret</strong><small id="planet-secret-small">locked</small>
+            <strong id="planet-secret-label">secret</strong><small id="planet-secret-small">locked</small>
           </button>
         </div>
-
-        <section id="patreon-panel" class="panel-section pixel-window content-panel" aria-labelledby="patreon-title">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            CREATOR CAMP
-          </div>
-          <h3 id="patreon-title" class="panel-title">Support Awaru</h3>
-          <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0">Help fuel more cozy Korea adventures, vlogs, music, and dream projects.</p>
-          <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button">
-            <span style="width:20px;height:20px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
-            <span id="btn-patreon">Support on Patreon</span>
-          </a>
-        </section>
 
         <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
           <div class="window-label">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7z"/></svg>
-            VIDEO QUESTS
+            <span id="yt-window-label">video terminal</span>
           </div>
-          <h3 id="heading-yt" class="panel-title">YouTube Channel</h3>
+          <h3 id="heading-yt" class="panel-title">YOUTUBE CHANNEL</h3>
           <div class="youtube-single-container">
             <a id="yt-link" href="#" target="_blank" rel="noopener" class="yt-channel-card">
               <div class="yt-mock-thumbnail">
@@ -685,8 +660,8 @@
               </div>
               <div class="yt-card-info">
                 <div class="yt-card-meta">
-                  <h4 id="yt-channel-text">Visit My YouTube Channel</h4>
-                  <p>Explore stories, journals, and adventures</p>
+                  <h4 id="yt-channel-text">visit my youtube channel</h4>
+                  <p id="yt-channel-desc">explore stories, journals, and adventures</p>
                 </div>
                 <div style="width: 24px; height: 24px; color: #5844c9;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -696,70 +671,83 @@
           </div>
         </section>
 
-        <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
-          <div class="window-label">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
-            SPACE MAIL TERMINAL
-          </div>
-          <h3 id="heading-letter" class="panel-title">Send a Letter</h3>
-          <div class="mail-terminal">
-            <div class="terminal-screen">
-              <div class="field-group">
-                <label for="sender-name" id="label-name">FROM</label>
-                <input type="text" id="sender-name" class="field" placeholder="Your Name / 이름" autocomplete="name">
-              </div>
-              <div class="field-group">
-                <label for="sender-msg" id="label-message">MESSAGE</label>
-                <textarea id="sender-msg" rows="5" class="field" placeholder="Write something to Awaru... / 메시지를 적어주세요..."></textarea>
-              </div>
-              <div class="send-row">
-                <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
-                  <span style="width:16px;height:16px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></span>
-                  <span id="btn-submit-text">Generate PNG Letter</span>
-                </button>
-                <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">Clear</button>
-              </div>
-            </div>
-            <aside class="rocket-card" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a15.3 15.3 0 0 1 4 9.5c0 3.7-1.3 6.4-4 8.5-2.7-2.1-4-4.8-4-8.5a15.3 15.3 0 0 1 4-9.5zM4 12c0-2 .5-3.8 1.4-5.4A17.2 17.2 0 0 0 2 12c0 4.3 2.5 8 6.1 9.7-.7-2.1-.7-4.3-.7-6.7s0-2.3-.4-3zm14.6-5.4c.9 1.6 1.4 3.4 1.4 5.4s0 1-.4 3c-.4 2.4-.4 4.6-1.1 6.7 3.6-1.7 6.1-5.4 6.1-9.7a17.2 17.2 0 0 0-3.4-5.4z"/></svg>
-              <p id="rocket-copy">Ready to launch your letter across the galaxy.</p>
-            </aside>
-          </div>
-        </section>
-
         <section id="music-panel" class="panel-section pixel-window content-panel" aria-labelledby="music-title">
           <div class="window-label">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-            PIXEL RADIO
+            <span id="music-window-label">pixel radio</span>
           </div>
-          <h3 id="music-title" class="panel-title">Cozy Pixel Radio</h3>
+          <h3 id="music-title" class="panel-title">COZY PIXEL RADIO</h3>
           <div class="radio-panel">
             <div class="radio-art">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6H4V4h16v2zm0 14H4V8h16v12zM7 11v6l5-3-5-3z"/></svg>
             </div>
             <div>
-              <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0">Soft retro bleeps made in your browser. No autoplay, no surprise sound.</p>
+              <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0">soft retro bleeps made in your browser. no autoplay, no surprise sound.</p>
               <div class="button-row">
-                <button id="music-play" type="button" class="game-button primary-button">▶ Play</button>
-                <button id="music-pause" type="button" class="game-button">⏸ Pause</button>
-                <button id="music-mute" type="button" class="game-button">🔇 Mute</button>
+                <button id="music-play" type="button" class="game-button primary-button">▶ play</button>
+                <button id="music-pause" type="button" class="game-button">⏸ pause</button>
+                <button id="music-mute" type="button" class="game-button">🔇 mute</button>
               </div>
-              <label for="volume-range" style="display:block;margin-top:16px;font-weight:1000;color:var(--ink-soft)">Volume</label>
+              <label id="volume-label" for="volume-range" style="display:block;margin-top:16px;font-weight:1000;color:var(--ink-soft)">volume</label>
               <input id="volume-range" class="range" type="range" min="0" max="1" step="0.01" value="0.28">
             </div>
           </div>
         </section>
 
+        <section id="letter-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-letter">
+          <div class="window-label">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span id="letter-window-label">space mail terminal</span>
+          </div>
+          <h3 id="heading-letter" class="panel-title">SEND A LETTER</h3>
+          <div class="mail-terminal">
+            <div class="terminal-screen">
+              <div class="field-group">
+                <label for="sender-name" id="label-name">FROM</label>
+                <input type="text" id="sender-name" class="field" placeholder="your name / 이름" autocomplete="name">
+              </div>
+              <div class="field-group">
+                <label for="sender-msg" id="label-message">MESSAGE</label>
+                <textarea id="sender-msg" rows="5" class="field" placeholder="write something to awaru... / 메시지를 적어주세요..."></textarea>
+              </div>
+              <div class="send-row">
+                <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
+                  <span style="width:16px;height:16px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></span>
+                  <span id="btn-submit-text">generate png letter</span>
+                </button>
+                <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
+              </div>
+            </div>
+            <aside class="rocket-card" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a15.3 15.3 0 0 1 4 9.5c0 3.7-1.3 6.4-4 8.5-2.7-2.1-4-4.8-4-8.5a15.3 15.3 0 0 1 4-9.5zM4 12c0-2 .5-3.8 1.4-5.4A17.2 17.2 0 0 0 2 12c0 4.3 2.5 8 6.1 9.7-.7-2.1-.7-4.3-.7-6.7s0-2.3-.4-3zm14.6-5.4c.9 1.6 1.4 3.4 1.4 5.4s0 1-.4 3c-.4 2.4-.4 4.6-1.1 6.7 3.6-1.7 6.1-5.4 6.1-9.7a17.2 17.2 0 0 0-3.4-5.4z"/></svg>
+              <p id="rocket-copy">ready to launch your letter across the galaxy.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section id="patreon-panel" class="panel-section pixel-window content-panel" aria-labelledby="patreon-title">
+          <div class="window-label">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span id="patreon-window-label">creator camp</span>
+          </div>
+          <h3 id="patreon-title" class="panel-title">SUPPORT AWARU</h3>
+          <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0">help fuel more cozy korea adventures, vlogs, music, and dream projects.</p>
+          <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button">
+            <span style="width:20px;height:20px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
+            <span id="btn-patreon">support on patreon</span>
+          </a>
+        </section>
+
         <section id="secret-panel" class="panel-section pixel-window content-panel" aria-labelledby="secret-title">
           <div class="window-label">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 21.9 5.42 21.9 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            HIDDEN QUEST
+            <span id="secret-window-label">hidden sphere</span>
           </div>
-          <h3 id="secret-title" class="panel-title">Secret Planet</h3>
-          <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0">Awaru's dream is still loading, but every brave day adds +1 hope.</p>
+          <h3 id="secret-title" class="panel-title">SECRET PLANET</h3>
+          <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0">awaru's dream is still loading, but every brave day adds +1 hope.</p>
           <div class="quest-card">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-5-1a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm8-1a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-4 6a4 4 0 0 1-3.44-2h6.88A4 4 0 0 1 12 17z"/></svg>
-            <strong id="random-message">A tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">You found a soft little corner of the universe.</small>
+            <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
           </div>
         </section>
       </section>
@@ -767,8 +755,8 @@
   </main>
 
   <div class="sound-dock" aria-label="Sound controls">
-    <button id="sound-toggle" class="dock-button" type="button">🔈 Sound OFF</button>
-    <button id="motion-toggle" class="dock-button" type="button">✨ Motion ON</button>
+    <button id="sound-toggle" class="dock-button" type="button">🔈 sound off</button>
+    <button id="motion-toggle" class="dock-button" type="button">✨ motion on</button>
   </div>
 
   <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
@@ -776,35 +764,34 @@
 
   <div class="launch-overlay" id="launch-overlay" role="dialog" aria-modal="true" aria-labelledby="launch-title">
     <div class="pixel-window launch-card">
-      <div class="window-label">🚀 ROCKET DM MAIL</div>
+      <div class="window-label" id="overlay-window-label">🚀 rocket dm mail</div>
       <div id="launch-state">
         <div class="big-rocket-wrap">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </div>
-        <h2 class="panel-title" id="launch-title">Launching PNG...</h2>
-        <p class="subtitle" id="launch-copy">Preparing your galaxy letter image for Awaru.</p>
+        <h2 class="panel-title" id="launch-title">LAUNCHING PNG...</h2>
+        <p class="subtitle" id="launch-copy">preparing your galaxy letter image for awaru.</p>
       </div>
       <div id="success-state" class="hidden-section">
         <div class="success-check">✓</div>
-        <h2 class="panel-title" id="success-title">Mission Complete!</h2>
-        <p class="subtitle" id="success-copy">Your PNG layout was created and downloaded! Open Instagram to send it straight to my DMs.</p>
+        <h2 class="panel-title" id="success-title">MISSION COMPLETE!</h2>
+        <p class="subtitle" id="success-copy">your png layout was created and downloaded! open instagram to send it straight to my dms.</p>
         <div class="button-row" style="justify-content:center">
-          <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 Open Instagram DM</button>
-          <button id="close-launch-btn" type="button" class="game-button">Close</button>
+          <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 open instagram dm</button>
+          <button id="close-launch-btn" type="button" class="game-button">close</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Congrats Overlay System -->
   <div class="launch-overlay" id="congrats-overlay" role="dialog" aria-modal="true">
     <div class="pixel-window launch-card" style="background: linear-gradient(145deg, #fffcf0, #fff3ff);">
-      <div class="window-label" style="background:#ffe58f;">🏆 VICTORY ACHIEVED</div>
+      <div class="window-label" id="congrats-window-label" style="background:#ffe58f;">🏆 victory achieved</div>
       <div class="success-check" style="background:linear-gradient(145deg, #ffe58f, #ff94cf); color:#fff; font-size:48px;">★</div>
-      <h2 class="panel-title" style="font-size:36px; margin-bottom:4px;">CONGRATS!</h2>
-      <p class="subtitle" style="font-size:16px;">You completed every planet quest and unlocked maximum cosmic power! +500 XP granted.</p>
+      <h2 class="panel-title" id="congrats-title" style="font-size:36px; margin-bottom:4px;">CONGRATS!</h2>
+      <p class="subtitle" id="congrats-copy" style="font-size:16px;">you completed every planet world and unlocked maximum cosmic power! +500 xp granted.</p>
       <div class="button-row" style="justify-content:center">
-        <button onclick="document.getElementById('congrats-overlay').classList.remove('active')" type="button" class="game-button primary-button">Awesome! 🎮</button>
+        <button id="congrats-btn" onclick="document.getElementById('congrats-overlay').classList.remove('active')" type="button" class="game-button primary-button">awesome! 🎮</button>
       </div>
     </div>
   </div>
@@ -843,107 +830,185 @@
     const localization = {
       en: {
         htmlLang: "en",
-        chooseSubtitle: "Pick a cozy world and begin Awaru's pastel galaxy adventure.",
-        characterClass: "Pisces • ENFJ • Creator",
+        mainTitle: "AWARU UNIVERSE",
+        navBtnText: "preference:",
+        languageTitle: "CHOOSE YOUR PLANET",
+        chooseSubtitle: "pick a cozy world and begin awaru's pastel galaxy adventure.",
+        playerLabel: "player",
+        characterClass: "pisces • enfj • creator",
+        dialogueLabel: "dialogue",
         story: [
-          "Hello traveler! Scale up your curiosity. Meet Awaru (아와루), a Pisces born in the year 2000 with an energetic ENFJ spirit.",
-          "At only 19 years old, he made a brave jump and moved all the way to South Korea to chase a brighter life.",
-          "His ultimate quest? Build a life through YouTube, capture his colorful daily moments, and create a dream collaboration with an SM Entertainment artist before turning 30. 🚀"
+          "hello traveler! scale up your curiosity. meet awaru (아와루), a pisces born in the year 2000 with an energetic enfj spirit.",
+          "at only 19 years old, he made a brave jump and moved all the way to south korea to chase a brighter life.",
+          "his ultimate quest? build a life through youtube, capture his colorful daily moments, and create a dream collaboration with an sm entertainment artist before turning 30. 🚀"
         ],
-        missionIntro: "MISSION INTRO",
-        nextBtn: "Next ▶",
-        finishBtn: "Enter Hub 🎮",
-        skipBtn: "Skip to Hub ✨",
+        missionIntro: "mission intro",
+        nextBtn: "next ▶",
+        finishBtn: "enter hub 🎮",
+        skipBtn: "skip to hub ✨",
+        hubTitle: "AWARU",
         subtitle: "",
-        patreon: "Support on Patreon",
-        patreonCopy: "Help fuel more cozy Korea adventures, vlogs, music, and dream projects.",
-        ytChannel: "Visit My YouTube Channel",
-        headingYt: "YouTube Quests",
-        headingLetter: "Send a Letter",
+        planetYoutubeLabel: "youtube",
+        planetYoutubeSmall: "videos",
+        planetMusicLabel: "music",
+        planetMusicSmall: "radio",
+        planetLetterLabel: "letter",
+        planetLetterSmall: "space mail",
+        planetPatreonLabel: "patreon",
+        planetPatreonSmall: "portal",
+        planetSecretLabel: "secret",
+        planetSecretSmallLocked: "locked",
+        planetSecretSmallUnlocked: "unlocked",
+        ytWindowLabel: "video terminal",
+        headingYt: "YOUTUBE CHANNEL",
+        ytChannel: "visit my youtube channel",
+        ytChannelDesc: "explore stories, journals, and adventures",
+        musicWindowLabel: "pixel radio",
+        musicTitle: "COZY PIXEL RADIO",
+        musicCopy: "soft retro bleeps made in your browser. no autoplay, no surprise sound.",
+        musicPlay: "▶ play",
+        musicPause: "⏸ pause",
+        musicMute: "🔇 mute",
+        musicUnmute: "🔈 unmute",
+        volumeLabel: "volume",
+        letterWindowLabel: "space mail terminal",
+        headingLetter: "SEND A LETTER",
         labelName: "FROM",
         labelMessage: "MESSAGE",
-        namePlaceholder: "Your Name",
-        messagePlaceholder: "Write something to Awaru...",
-        btnSubmit: "Generate PNG Letter",
-        clear: "Clear",
-        rocketCopy: "Ready to launch your letter across the galaxy.",
-        alertFill: "Please fill out both your name and message!",
-        launchTitle: "Launching PNG...",
-        launchCopy: "Preparing your galaxy letter image for Awaru.",
-        successTitle: "Mission Complete!",
-        successCopy: "Your PNG layout was created and downloaded! Open Instagram to send it straight to my DMs.",
-        pdfTitle: "A Letter for Awaru",
-        from: "From",
-        date: "Date",
-        musicTitle: "Cozy Pixel Radio",
-        musicCopy: "Soft retro bleeps made in your browser. No autoplay, no surprise sound.",
-        secretTitle: "Secret Planet",
-        secretCopy: "Awaru's dream is still loading, but every brave day adds +1 hope.",
+        namePlaceholder: "your name",
+        messagePlaceholder: "write something to awaru...",
+        btnSubmit: "generate png letter",
+        clear: "clear",
+        rocketCopy: "ready to launch your letter across the galaxy.",
+        patreonWindowLabel: "creator camp",
+        patreonTitle: "SUPPORT AWARU",
+        patreonCopy: "help fuel more cozy korea adventures, vlogs, music, and dream projects.",
+        patreonBtnText: "support on patreon",
+        secretWindowLabel: "hidden sphere",
+        secretTitle: "SECRET PLANET",
+        secretCopy: "awaru's dream is still loading, but every brave day adds +1 hope.",
         randomMessages: [
-          "A tiny alien says: keep going, traveler.",
-          "A UFO whispers: your soft era is powerful.",
-          "A moon bunny says: dreams grow one vlog at a time.",
-          "The galaxy says: Korea looks brighter with you in it."
+          "a tiny alien says: keep going, traveler.",
+          "a ufo whispers: your soft era is powerful.",
+          "a moon bunny says: dreams grow one vlog at a time.",
+          "the galaxy says: korea looks brighter with you in it."
         ],
-        secretSmall: "You found a soft little corner of the universe.",
-        secretLocked: "locked",
-        secretUnlocked: "unlocked",
-        unlockedToast: "Secret Planet unlocked! ⭐",
-        starToast: count => `Star collected: ${count}/20 ✨`,
+        secretSmall: "you found a soft little corner of the universe.",
+        alertFill: "please fill out both your name and message!",
+        overlayWindowLabel: "🚀 rocket dm mail",
+        launchTitle: "LAUNCHING PNG...",
+        launchCopy: "preparing your galaxy letter image for awaru.",
+        successTitle: "MISSION COMPLETE!",
+        successCopy: "your png layout was created and downloaded! open instagram to send it straight to my dms.",
+        openInstaBtn: "💌 open instagram dm",
+        closeLaunchBtn: "close",
+        congratsWindowLabel: "🏆 victory achieved",
+        congratsTitle: "CONGRATS!",
+        congratsCopy: "you completed every planet world and unlocked maximum cosmic power! +500 xp granted.",
+        congratsBtn: "awesome! 🎮",
+        soundOn: "🔊 sound on",
+        soundOff: "🔈 sound off",
+        motionOn: "✨ motion on",
+        motionOff: "✨ motion off",
+        pdfTitle: "a letter for awaru",
+        from: "from",
+        date: "date",
+        unlockedToast: "secret planet unlocked! ⭐",
+        starToast: count => `star collected: ${count}/20 ✨`,
         stayToast: "30-second cozy traveler bonus unlocked!",
-        konamiToast: "Konami Code accepted. Hidden alien activated! 👾"
+        konamiToast: "konami code accepted. hidden alien activated! 👾",
+        toastClear: "space mail cleared ✨"
       },
       ko: {
         htmlLang: "ko",
+        mainTitle: "AWARU UNIVERSE",
+        navBtnText: "환경 설정:",
+        languageTitle: "행성을 선택하세요",
         chooseSubtitle: "귀여운 행성을 선택하고 아와루의 파스텔 은하 모험을 시작하세요.",
-        characterClass: "물고기자리 • ENFJ • 크리에이터",
+        playerLabel: "플레이어",
+        characterClass: "물고기자리 • enfj • 크리에이터",
+        dialogueLabel: "대화창",
         story: [
-          "안녕하세요, 모험가님! 2000년생 물고기자리이자 열정적인 ENFJ 영혼을 가진 아와루(Awaru)를 소개합니다.",
-          "그는 단 19살의 나이에 용기 있게 홀로 한국으로 건너와 더 밝은 삶을 향해 모험을 시작했습니다.",
-          "그의 최종 퀘스트는 유튜브로 삶을 만들어가고, 소중한 일상을 기록하며, 30세가 되기 전 SM 엔터테인먼트 아티스트와 꿈의 콜라보 영상을 만드는 것입니다. 🚀"
+          "안녕하세요 모험가님! 호기심을 가득 채워보세요. 2000년도에 태어난 활기찬 enfj 영혼을 가진 아와루(아와루)를 소개합니다.",
+          "단 19세의 나이에 그는 더 밝은 삶을 찾아 용감하게 한국으로 멀리 건너왔습니다.",
+          "그의 최종 퀘스트는 유튜브를 통해 삶을 개척하고, 다채로운 일상의 순간들을 기록하며, 30세가 되기 전에 sm 엔터테인먼트 아티스트와 꿈의 콜라보를 만드는 것입니다. 🚀"
         ],
         missionIntro: "미션 소개",
         nextBtn: "다음 ▶",
         finishBtn: "허브 입장 🎮",
-        skipBtn: "허브로 바로가기 ✨",
+        skipBtn: "허브로 건너뛰기 ✨",
+        hubTitle: "AWARU",
         subtitle: "",
-        patreon: "패트리온 후원하기",
-        patreonCopy: "한국 일상, 브이로그, 음악, 꿈 프로젝트를 이어갈 수 있도록 응원해주세요.",
-        ytChannel: "유튜브 채널 가기",
-        headingYt: "유튜브 퀘스트",
+        planetYoutubeLabel: "유튜브",
+        planetYoutubeSmall: "영상들",
+        planetMusicLabel: "음악",
+        planetMusicSmall: "라디오",
+        planetLetterLabel: "편지",
+        planetLetterSmall: "우주 우편",
+        planetPatreonLabel: "패트리온",
+        planetPatreonSmall: "포털",
+        planetSecretLabel: "비밀",
+        planetSecretSmallLocked: "잠김",
+        planetSecretSmallUnlocked: "열림",
+        ytWindowLabel: "비디오 터미널",
+        headingYt: "유튜브 채널",
+        ytChannel: "유튜브 채널 방문하기",
+        ytChannelDesc: "이야기, 브이로그, 그리고 모험들을 살펴보세요",
+        musicWindowLabel: "픽셀 라디오",
+        musicTitle: "포근한 픽셀 라디오",
+        musicCopy: "브라우저에서 직접 생성되는 부드러운 레트로 사운드입니다. 자동 재생이나 갑작스러운 소리는 없습니다.",
+        musicPlay: "▶ 재생",
+        musicPause: "⏸ 일시정지",
+        musicMute: "🔇 음소거",
+        musicUnmute: "🔈 음소거 해제",
+        volumeLabel: "볼륨",
+        letterWindowLabel: "우주 우편 터미널",
         headingLetter: "편지 보내기",
-        labelName: "보내는 사람",
+        labelName: "보내는 이",
         labelMessage: "메시지",
-        namePlaceholder: "이름",
-        messagePlaceholder: "아와루에게 메시지를 적어주세요...",
-        btnSubmit: "PNG 편지 생성",
+        namePlaceholder: "이름을 적어주세요",
+        messagePlaceholder: "아와루에게 전달할 메시지를 적어주세요...",
+        btnSubmit: "png 편지 이미지 생성",
         clear: "지우기",
-        rocketCopy: "편지를 은하계로 발사할 준비가 되었어요.",
-        alertFill: "이름과 메시지를 모두 입력해주세요!",
-        launchTitle: "PNG 발사 중...",
-        launchCopy: "아와루에게 보낼 은하 편지 이미지를 준비하고 있어요.",
-        successTitle: "미션 완료!",
-        successCopy: "PNG 파일이 성공적으로 저장되었습니다! 인스타그램 DM으로 전송을 완료해주세요.",
-        pdfTitle: "아와루에게 보내는 편지",
-        from: "From",
-        date: "Date",
-        musicTitle: "코지 픽셀 라디오",
-        musicCopy: "브라우저에서 만들어지는 부드러운 레트로 사운드입니다. 자동 재생은 없어요.",
+        rocketCopy: "은하계를 가로질러 편지를 발사할 준비가 되었습니다.",
+        patreonWindowLabel: "크리에이터 캠프",
+        patreonTitle: "아와루 후원하기",
+        patreonCopy: "더 포근한 한국 모험, 브이로그, 음악, 그리고 꿈의 프로젝트를 지속할 수 있도록 도와주세요.",
+        patreonBtnText: "패트리온에서 후원하기",
+        secretWindowLabel: "숨겨진 영역",
         secretTitle: "비밀 행성",
-        secretCopy: "아와루의 꿈은 아직 로딩 중이지만, 한국에서의 하루하루가 희망 +1을 더해줍니다.",
+        secretCopy: "아와루의 꿈은 아직 로딩 중이지만, 용기 있는 하루하루가 희망을 +1만큼 더해줍니다.",
         randomMessages: [
-          "작은 외계인이 말합니다: 계속 나아가요, 모험가님.",
-          "UFO가 속삭입니다: 부드러운 마음도 강한 힘이에요.",
-          "달토끼가 말합니다: 꿈은 영상 하나씩 자라나요.",
-          "은하가 말합니다: 당신이 있어서 한국의 밤이 더 빛나요."
+          "작은 외계인이 말합니다: 계속 나아가세요, 모험가님.",
+          "ufo가 속삭입니다: 당신의 부드러운 감성은 강력한 힘입니다.",
+          "달토끼가 말합니다: 꿈은 브이로그 하나씩 성장합니다.",
+          "은하계가 말합니다: 당신이 있어서 한국이 더 밝게 빛납니다."
         ],
-        secretSmall: "우주의 작은 힐링 공간을 발견했어요.",
-        secretLocked: "잠김",
-        secretUnlocked: "해제됨",
-        unlockedToast: "비밀 행성이 열렸어요! ⭐",
-        starToast: count => `별 수집: ${count}/20 ✨`,
-        stayToast: "30초 머무르기 보너스가 열렸어요!",
-        konamiToast: "코나미 코드 성공! 숨은 외계인이 깨어났어요 👾"
+        secretSmall: "우주의 아주 부드럽고 작은 모퉁이를 발견하셨네요.",
+        alertFill: "이름과 메시지를 모두 입력해주세요!",
+        overlayWindowLabel: "🚀 로켓 dm 우편",
+        launchTitle: "PNG 발사 중...",
+        launchCopy: "아와루에게 전달할 은하 편지 이미지를 구성하고 있습니다.",
+        successTitle: "미션 완료!",
+        successCopy: "png 레이아웃이 생성되어 다운로드되었습니다! 인스타그램을 열어 dms로 바로 전송해보세요.",
+        openInstaBtn: "💌 인스타그램 DM 열기",
+        closeLaunchBtn: "닫기",
+        congratsWindowLabel: "🏆 승리 달성",
+        congratsTitle: "축하합니다!",
+        congratsCopy: "모든 행성 세계를 완료하고 최고의 우주 에너지를 잠금 해제하셨습니다! +500 xp가 부여됩니다.",
+        congratsBtn: "최고야! 🎮",
+        soundOn: "🔊 소리 켬",
+        soundOff: "🔈 소리 끔",
+        motionOn: "✨ 모션 켬",
+        motionOff: "✨ 모션 끔",
+        pdfTitle: "아와루에게 보내는 편지",
+        from: "보내는 이",
+        date: "날짜",
+        unlockedToast: "비밀 행성이 열렸습니다! ⭐",
+        starToast: count => `별 수집됨: ${count}/20 ✨`,
+        stayToast: "30초 보너스 포근한 모험가 보상이 열렸습니다!",
+        konamiToast: "코나미 코드가 수락되었습니다. 숨겨진 외계인이 활성화되었습니다! 👾",
+        toastClear: "우주 우편 내용이 삭제되었습니다 ✨"
       }
     };
 
@@ -957,12 +1022,9 @@
       if (element) element.textContent = text;
     }
 
-    function updateHud(mission, xp = state.xp, level = state.level) {
+    function updateHud(xp = state.xp, level = state.level) {
       state.xp = Math.max(0, Math.min(100, xp));
       state.level = level;
-      setText("mission-label", mission);
-      setText("level-label", String(level).padStart(2, "0"));
-      setText("xp-label", `${state.xp}%`);
       $("#xp-fill").style.width = `${state.xp}%`;
     }
 
@@ -987,7 +1049,7 @@
       state.storyIndex = 0;
       document.documentElement.lang = t().htmlLang;
       applyLocalization();
-      updateHud("INTRO", 28, 1);
+      updateHud(28, 1);
       showScreen("story-screen");
       showStoryStep();
       playSound("level");
@@ -995,30 +1057,75 @@
 
     function applyLocalization() {
       const data = t();
+      setText("main-title", data.mainTitle);
+      setText("nav-btn-text", data.navBtnText);
+      setText("language-title", data.languageTitle);
+      setText("language-subtitle", data.chooseSubtitle);
+      setText("player-label", data.playerLabel);
       setText("character-class", data.characterClass);
+      setText("dialogue-label", data.dialogueLabel);
+      setText("hub-title", data.hubTitle);
       setText("hub-subtitle", data.subtitle);
-      setText("btn-patreon", data.patreon);
-      setText("patreon-copy", data.patreonCopy);
-      setText("yt-channel-text", data.ytChannel);
+
+      setText("planet-youtube-label", data.planetYoutubeLabel);
+      setText("planet-youtube-small", data.planetYoutubeSmall);
+      setText("planet-music-label", data.planetMusicLabel);
+      setText("planet-music-small", data.planetMusicSmall);
+      setText("planet-letter-label", data.planetLetterLabel);
+      setText("planet-letter-small", data.planetLetterSmall);
+      setText("planet-patreon-label", data.planetPatreonLabel);
+      setText("planet-patreon-small", data.planetPatreonSmall);
+      setText("planet-secret-label", data.planetSecretLabel);
+      
+      setText("yt-window-label", data.ytWindowLabel);
       setText("heading-yt", data.headingYt);
+      setText("yt-channel-text", data.ytChannel);
+      setText("yt-channel-desc", data.ytChannelDesc);
+
+      setText("music-window-label", data.musicWindowLabel);
+      setText("music-title", data.musicTitle);
+      setText("music-copy", data.musicCopy);
+      setText("music-play", data.musicPlay);
+      setText("music-pause", data.musicPause);
+      setText("music-mute", state.muted ? data.musicUnmute : data.musicMute);
+      setText("volume-label", data.volumeLabel);
+
+      setText("letter-window-label", data.letterWindowLabel);
       setText("heading-letter", data.headingLetter);
       setText("label-name", data.labelName);
       setText("label-message", data.labelMessage);
       setText("btn-submit-text", data.btnSubmit);
       setText("btn-clear", data.clear);
       setText("rocket-copy", data.rocketCopy);
-      setText("skip-btn", data.skipBtn);
+
+      setText("patreon-window-label", data.patreonWindowLabel);
+      setText("patreon-title", data.patreonTitle);
+      setText("patreon-copy", data.patreonCopy);
+      setText("btn-patreon", data.patreonBtnText);
+
+      setText("secret-window-label", data.secretWindowLabel);
+      setText("secret-title", data.secretTitle);
+      setText("secret-copy", data.secretCopy);
+      setText("secret-small-copy", data.secretSmall);
+      setText("planet-secret-small", state.secretUnlocked ? data.planetSecretSmallUnlocked : data.planetSecretSmallLocked);
+      setText("random-message", data.randomMessages[Math.floor(Math.random() * data.randomMessages.length)]);
+      
+      setText("overlay-window-label", data.overlayWindowLabel);
       setText("launch-title", data.launchTitle);
       setText("launch-copy", data.launchCopy);
       setText("success-title", data.successTitle);
       setText("success-copy", data.successCopy);
-      setText("music-title", data.musicTitle);
-      setText("music-copy", data.musicCopy);
-      setText("secret-title", data.secretTitle);
-      setText("secret-copy", data.secretCopy);
-      setText("secret-small-copy", data.secretSmall);
-      setText("planet-secret-small", state.secretUnlocked ? data.secretUnlocked : data.secretLocked);
-      setText("random-message", data.randomMessages[Math.floor(Math.random() * data.randomMessages.length)]);
+      setText("open-instagram-btn", data.openInstaBtn);
+      setText("close-launch-btn", data.closeLaunchBtn);
+
+      setText("congrats-window-label", data.congratsWindowLabel);
+      setText("congrats-title", data.congratsTitle);
+      setText("congrats-copy", data.congratsCopy);
+      setText("congrats-btn", data.congratsBtn);
+
+      setText("sound-toggle", state.soundEnabled ? data.soundOn : data.soundOff);
+      setText("motion-toggle", document.body.classList.contains("reduced-motion") ? data.motionOff : data.motionOn);
+
       $("#sender-name").placeholder = data.namePlaceholder;
       $("#sender-msg").placeholder = data.messagePlaceholder;
       $("#yt-link").href = LINKS.youtube[state.currentLang];
@@ -1032,8 +1139,9 @@
       setText("story-heading", data.missionIntro);
       const finalStep = state.storyIndex === stepCount - 1;
       setText("next-btn", finalStep ? data.finishBtn : data.nextBtn);
+      setText("skip-btn", data.skipBtn);
       typeText($("#story-text"), data.story[state.storyIndex]);
-      updateHud("STORY", 32 + state.storyIndex * 18, 1);
+      updateHud(32 + state.storyIndex * 18, 1);
     }
 
     function typeText(element, text) {
@@ -1068,7 +1176,7 @@
 
     function enterHub() {
       applyLocalization();
-      updateHud("HUB", 76, 2);
+      updateHud(76, 2);
       showScreen("hub-screen");
       openPanel("youtube-panel");
       playSound("level");
@@ -1082,8 +1190,7 @@
       state.visitedPlanets.add(id);
       checkHubCompletion();
 
-      const missionName = id.split("-")[0].toUpperCase();
-      updateHud(missionName, id === "secret-panel" ? 100 : Math.max(state.xp, 82), id === "secret-panel" ? 3 : 2);
+      updateHud(id === "secret-panel" ? 100 : Math.max(state.xp, 82), id === "secret-panel" ? 3 : 2);
       if (id === "secret-panel" && !state.secretUnlocked) {
         unlockSecret("planet");
       }
@@ -1093,7 +1200,7 @@
       if (state.visitedPlanets.size >= 5 && !state.congratsTriggered) {
         state.congratsTriggered = true;
         setTimeout(() => {
-          updateHud("VICTORY", 100, 4);
+          updateHud(100, 4);
           $("#congrats-overlay").classList.add("active");
           playSound("level");
         }, 600);
@@ -1112,7 +1219,7 @@
       await sleep(1000);
       generatePNG(name, message);
       showSuccess();
-      updateHud("MAIL", 96, 3);
+      updateHud(96, 3);
       playSound("success");
     }
 
@@ -1134,7 +1241,7 @@
     function clearLetter() {
       $("#sender-name").value = "";
       $("#sender-msg").value = "";
-      showToast("Space mail cleared ✨");
+      showToast(t().toastClear);
       playSound("coin");
     }
 
@@ -1166,7 +1273,7 @@
       ctx.fillStyle = "#5e48cc";
       ctx.font = "bold 34px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(t().pdfTitle || "A Letter for Awaru", canvas.width / 2, 115);
+      ctx.fillText(t().pdfTitle.toUpperCase() || "A LETTER FOR AWARU", canvas.width / 2, 115);
 
       ctx.fillStyle = "#5c527a";
       ctx.font = "22px sans-serif";
@@ -1239,7 +1346,7 @@
       if (state.secretUnlocked) return;
       state.secretUnlocked = true;
       $("#secret-planet").classList.add("unlocked");
-      setText("planet-secret-small", t().secretUnlocked);
+      setText("planet-secret-small", t().planetSecretSmallUnlocked);
       showToast(reason === "stay" ? t().stayToast : t().unlockedToast);
       playSound("level");
     }
@@ -1252,6 +1359,24 @@
       state.masterGain = state.audioContext.createGain();
       state.masterGain.gain.value = Number($("#volume-range").value);
       state.masterGain.connect(state.audioContext.destination);
+    }
+
+    // Instagram Built-In Engine Force Unlock Interaction Handler
+    function forceUnlockAudioContext() {
+      initAudio();
+      if (state.audioContext) {
+        if (state.audioContext.state === "suspended") {
+          state.audioContext.resume().then(() => {
+            state.soundEnabled = true;
+            updateSoundToggle();
+            $("#iosAudioUnlocker").classList.add("activated");
+          });
+        } else {
+          state.soundEnabled = true;
+          updateSoundToggle();
+          $("#iosAudioUnlocker").classList.add("activated");
+        }
+      }
     }
 
     function playTone(frequency, duration, type = "sine", gain = 0.08, delay = 0) {
@@ -1309,10 +1434,15 @@
     }
 
     function updateSoundToggle() {
-      setText("sound-toggle", state.soundEnabled ? "🔊 Sound ON" : "🔈 Sound OFF");
+      const data = t();
+      setText("sound-toggle", state.soundEnabled ? data.soundOn : data.soundOff);
     }
 
     function bindEvents() {
+      // Listen to the overlay tap target to resolve the background browser context limits
+      $("#iosAudioUnlocker").addEventListener("click", forceUnlockAudioContext);
+      $("#iosAudioUnlocker").addEventListener("touchstart", forceUnlockAudioContext);
+
       $$("button, a").forEach(el => {
         el.addEventListener("mouseenter", () => playSound("hover"));
         el.addEventListener("click", () => playSound("click"));
@@ -1327,13 +1457,15 @@
       });
       $("#motion-toggle").addEventListener("click", () => {
         document.body.classList.toggle("reduced-motion");
-        setText("motion-toggle", document.body.classList.contains("reduced-motion") ? "✨ Motion OFF" : "✨ Motion ON");
+        const data = t();
+        setText("motion-toggle", document.body.classList.contains("reduced-motion") ? data.motionOff : data.motionOn);
       });
       $("#music-play").addEventListener("click", startMusic);
       $("#music-pause").addEventListener("click", pauseMusic);
       $("#music-mute").addEventListener("click", () => {
         state.muted = !state.muted;
-        setText("music-mute", state.muted ? "🔈 Unmute" : "🔇 Mute");
+        const data = t();
+        setText("music-mute", state.muted ? data.musicUnmute : data.musicMute);
       });
       $("#volume-range").addEventListener("input", event => {
         initAudio();
@@ -1388,7 +1520,7 @@
     window.returnToPlanetSelection = returnToPlanetSelection;
 
     document.addEventListener("DOMContentLoaded", () => {
-      updateHud("START", 14, 1);
+      updateHud(14, 1);
       bindEvents();
       updateSoundToggle();
     });
