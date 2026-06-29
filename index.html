@@ -506,7 +506,7 @@
     }
     .terminal-screen::before { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(255,255,255,.06) 50%, transparent 50%); background-size: 100% 8px; opacity: .28; pointer-events: none; }
     .terminal-screen label { display: block; position: relative; z-index: 1; font-family: var(--font-title); font-size: 15px; margin: 0 0 6px; color: #ffe58f; }
-    .field { position: relative; z-index: 1; width: 100%; border: 3px solid rgba(255,255,255,.26); border-radius: 14px; background: rgba(255,255,255,.12); color: #fff; padding: 10px 12px; outline: none; font-weight: 800; transition: border .2s, background .2s, transform .2s; font-size: 13px; }
+    .field { position: relative; z-index: 1; width: 100%; border: 3px solid rgba(255,255,255,.26); border-radius: 14px; background: rgba(255,255,255,.12); color: #fff; padding: 10px 12px; outline: none; font-weight: 800; transition: border .2s, background .2s, transform .2s; font-size: 16px; }
     .field::placeholder { color: rgba(255,255,255,.62); }
     .field:focus { border-color: #ffe58f; background: rgba(255,255,255,.18); transform: translateY(-2px); }
     textarea.field { min-height: 90px; resize: vertical; line-height: 1.4; }
@@ -869,6 +869,7 @@
 
         <div class="button-row" style="justify-content:center">
           <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 open instagram dm</button>
+          <button id="save-pdf-btn" type="button" class="game-button pink-button" onclick="saveAsPDF()">📄 save as pdf</button>
           <button id="close-launch-btn" type="button" class="game-button">close</button>
         </div>
       </div>
@@ -993,6 +994,7 @@
         successTitle: "LETTER READY!",
         successCopy: "please screen capture the layout below and send it to awaru by dm!",
         openInstaBtn: "💌 open instagram dm",
+        savePdfBtn: "📄 save as pdf",
         closeLaunchBtn: "close",
         congratsWindowLabel: "🏆 thank you",
         congratsTitle: "THANK YOU",
@@ -1087,6 +1089,7 @@
         successTitle: "편지 완성!",
         successCopy: "아래 생성된 은하 편지 화면을 캡처(스크린샷)하여 아와루에게 인스타그램 DM으로 전송해주세요!",
         openInstaBtn: "💌 인스타그램 DM 열기",
+        savePdfBtn: "📄 PDF로 저장",
         closeLaunchBtn: "닫기",
         congratsWindowLabel: "🏆 thank you",
         congratsTitle: "THANK YOU",
@@ -1333,6 +1336,7 @@
       setText("success-title", data.successTitle);
       setText("success-copy", data.successCopy);
       setText("open-instagram-btn", data.openInstaBtn);
+      setText("save-pdf-btn", data.savePdfBtn);
       setText("close-launch-btn", data.closeLaunchBtn);
 
       setText("congrats-window-label", data.congratsWindowLabel);
@@ -1582,12 +1586,38 @@
       ctx.fillStyle = "#5140b8";
       ctx.font = "bold 20px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("@awaru.pdf  ✦  AWARU UNIVERSE", canvas.width / 2, 915);
+      ctx.fillText("@awaru.pdf", canvas.width / 2, 915);
 
       const previewImg = document.getElementById("preview-letter-img");
       if (previewImg) {
         previewImg.src = canvas.toDataURL("image/png");
       }
+    }
+
+    function saveAsPDF() {
+      const dataUrl = document.getElementById("preview-letter-img").src;
+      if (!dataUrl) return;
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        showToast("Popup blocked! Please allow popups to save PDF.");
+        return;
+      }
+      printWindow.document.write(`
+        <html>
+        <head>
+          <title>${t().pdfTitle}</title>
+          <style>
+            @page { size: auto; margin: 0; }
+            body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }
+            img { max-width: 100%; max-height: 100vh; object-fit: contain; }
+          </style>
+        </head>
+        <body>
+          <img src="${dataUrl}" onload="setTimeout(() => { window.print(); window.close(); }, 250);">
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
     function openInstagramDM() {
@@ -1742,6 +1772,7 @@
         });
       });
       document.addEventListener("mousemove", event => {
+        if (document.getElementById("launch-overlay").classList.contains("active")) return;
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
         $("#app-shell").style.transform = `scale(0.8) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
@@ -1778,6 +1809,7 @@
     window.handleLetterSubmission = handleLetterSubmission;
     window.clearLetter = clearLetter;
     window.returnToPlanetSelection = returnToPlanetSelection;
+    window.saveAsPDF = saveAsPDF;
 
     document.addEventListener("DOMContentLoaded", async () => {
       await loadExternalLocalization();
