@@ -142,7 +142,7 @@
       backdrop-filter: blur(22px) saturate(130%);
       overflow: hidden;
       transform-style: preserve-3d;
-      transform: scale(0.7);
+      transform: scale(0.75);
       transform-origin: center center;
     }
     .app-shell::before {
@@ -205,8 +205,8 @@
     .pixel-window::before, .pixel-window::after { content: ""; position: absolute; pointer-events: none; }
     .pixel-window::before { inset: 9px; border: 2px dashed rgba(86,65,121,.22); border-radius: 18px; }
     .window-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px;
+      display: inline-flex; align-items: center; justify-content: flex-start; gap: 8px;
+      padding: 6px 14px;
       transform: translateY(-50%);
       margin-left: 18px;
       border-radius: 999px;
@@ -217,6 +217,10 @@
       box-shadow: 0 4px 0 rgba(86,65,121,.22);
       font-size: 12px;
       font-weight: 700;
+    }
+    .window-label svg {
+      width: 14px;
+      height: 14px;
     }
 
     #lang-screen .choose-card { width: min(100%, 640px); padding: 8px 24px 24px; margin: 10px 0; }
@@ -252,7 +256,6 @@
     .choice-korea .choice-orb { background: #ef4444; animation-delay: -1s; }
     .choice-name { margin-top: 10px; display: block; font-family: var(--font-title); font-size: 16px; color: #5f46ce; text-shadow: 1px 1px 0 rgba(255,255,255,.85); }
 
-    /* Unified Story Layout Box */
     .unified-story-window {
       padding: 14px clamp(14px, 3.5vw, 28px) clamp(16px, 3.5vw, 24px);
       width: min(100%, 780px);
@@ -309,20 +312,21 @@
     .cursor-dot { display: inline-block; width: .65em; height: 1em; margin-left: 3px; background: #ff94cf; vertical-align: -0.12em; animation: cursorBlink .85s infinite; }
 
     .game-button, .cute-button {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      min-height: 48px;
-      padding: 10px 18px;
-      border-radius: 16px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      min-height: 38px;
+      padding: 6px 14px;
+      font-size: 13px;
+      border-radius: 12px;
       border: 3px solid rgba(69,44,109,.82);
       background: linear-gradient(180deg, #fff7bf, #ffbfde);
       color: #4b3970;
       font-weight: 1000;
-      box-shadow: 0 5px 0 rgba(70, 49, 117, .34), 0 12px 22px rgba(70, 49, 117, .15);
+      box-shadow: 0 4px 0 rgba(70, 49, 117, .34), 0 8px 16px rgba(70, 49, 117, .15);
       transition: transform .18s cubic-bezier(.18,.89,.32,1.28), box-shadow .18s, filter .2s;
     }
-    .game-button:hover, .cute-button:hover { transform: translateY(-4px) scale(1.02); filter: brightness(1.04); }
+    .game-button:hover, .cute-button:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.04); }
     .game-button:active, .cute-button:active { transform: translateY(2px) scale(.98); box-shadow: 0 2px 0 rgba(70,49,117,.34); }
-    .button-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .button-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
     .primary-button { background: linear-gradient(180deg, #aef2ff, #aa93ff); color: #fff; text-shadow: 1px 1px 0 rgba(51,39,91,.65); }
     .pink-button { background: linear-gradient(180deg, #ffd2e9, #ff8ec9); }
 
@@ -339,7 +343,6 @@
     }
     .hub-hero h2 { margin: 0; font-family: var(--font-title); font-size: clamp(32px, 6vw, 58px); color: #614ad5; line-height: .9; text-shadow: 2px 2px 0 #fff, 4px 4px 0 rgba(142,231,255,.42); }
     
-    /* Clean Minimalist Player Stats Outside of Box Layout */
     .player-identity-clean {
       max-width: 640px;
       margin: 0 auto 16px;
@@ -367,7 +370,6 @@
       text-transform: none !important;
     }
 
-    /* Hub Left/Right Workspace Layout Split */
     .hub-workspace {
       display: grid;
       grid-template-columns: 130px minmax(0, 1fr);
@@ -427,14 +429,14 @@
     .planet-secret { opacity: .48; filter: grayscale(.15); }
     .planet-secret.unlocked { opacity: 1; filter: none; animation: secretGlow 1s ease-in-out 3; }
 
-    /* Compact Sizing for Terminal Panels */
     .panel-section { display: none; margin-top: 0; animation: panelPop .42s cubic-bezier(.18,.89,.32,1.28) both; }
     .panel-section.active { display: block; }
     .content-panel { padding: 10px 16px 14px; }
     
     .panel-title { margin: -2px 0 8px; font-family: var(--font-title); font-size: clamp(18px, 3.5vw, 24px) !important; color: #654bdb; }
     
-    .youtube-single-container { max-width: 640px; margin: 0 auto; }
+    #youtube-panel.panel-section { max-width: 580px; margin: 0 auto; }
+    .youtube-single-container { max-width: 100%; margin: 0 auto; }
     .yt-channel-card {
       border-radius: 20px;
       overflow: hidden;
@@ -464,7 +466,7 @@
     }
     
     .yt-play-overlay {
-      width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.9); display: grid; place-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.15); color: #ff6969; padding: 12px; transition: transform 0.2s;
+      width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.9); display: grid; place-items: center; box-shadow: 0 6px 16px rgba(0,0,0,0.15); color: #ff6969; padding: 10px; transition: transform 0.2s;
       position: relative; z-index: 2;
     }
     .yt-channel-card:hover .yt-play-overlay { transform: scale(1.1); }
@@ -473,8 +475,8 @@
     .yt-card-meta p { margin: 2px 0 0; color: var(--ink-soft); font-weight: 800; font-size: 12px; }
 
     .quest-card {
-      min-height: 110px;
-      padding: 12px;
+      min-height: auto;
+      padding: 14px;
       border-radius: 18px;
       background: rgba(255,255,255,.62);
       border: 3px solid rgba(86,65,121,.28);
@@ -482,15 +484,16 @@
       transition: transform .2s, box-shadow .2s;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       font-weight: 900;
     }
-    .quest-card:hover { transform: translateY(-5px); box-shadow: 0 8px 0 rgba(86,65,121,.13), 0 0 16px rgba(255,255,255,.7); }
-    .quest-card svg { width: 28px; height: 28px; color: #6d5dfc; }
-    .quest-card strong { color: #5844c9; margin-top: 6px; display: block; font-size: 13px; }
-    .quest-card small { color: var(--ink-soft); font-size: 11px; }
+    .quest-card:hover { transform: translateY(-3px); box-shadow: 0 6px 0 rgba(86,65,121,.13), 0 0 16px rgba(255,255,255,.7); }
+    .quest-card strong { color: #5844c9; margin-top: 0; display: block; font-size: 14px; }
+    .quest-card small { color: var(--ink-soft); font-size: 11px; margin-top: 4px; }
 
-    .mail-terminal { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 12px; align-items: stretch; }
+    .mail-terminal { display: block; width: 100%; }
     .terminal-screen {
       padding: 14px;
       border-radius: 18px;
@@ -508,13 +511,9 @@
     .field:focus { border-color: #ffe58f; background: rgba(255,255,255,.18); transform: translateY(-2px); }
     textarea.field { min-height: 90px; resize: vertical; line-height: 1.4; }
     .field-group { margin-bottom: 10px; }
-    .rocket-card { display: grid; place-items: center; text-align: center; padding: 12px; border-radius: 20px; background: rgba(255,255,255,.62); border: 3px solid rgba(86,65,121,.26); color: #6d5dfc; }
-    .rocket-card svg { width: 48px; height: 48px; filter: drop-shadow(0 8px 16px rgba(86,65,121,.22)); animation: rocketIdle 2.7s ease-in-out infinite; }
-    .rocket-card p { margin: 6px 0 0; font-weight: 1000; color: var(--ink-soft); font-size: 11px; }
-    .send-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .send-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 
-    .radio-panel { display: grid; grid-template-columns: 80px minmax(0,1fr); gap: 14px; align-items: center; }
-    .radio-art { height: 74px; border-radius: 18px; background: linear-gradient(145deg, #fff7bf, #ffadd8); border: 4px solid rgba(69,44,109,.82); box-shadow: inset 0 -8px 0 rgba(70,49,117,.11), 0 6px 0 rgba(70,49,117,.24); display: grid; place-items: center; color: #4a3a74; padding: 8px; font-size: 28px; }
+    .radio-panel { display: block; width: 100%; }
     .range { width: 100%; accent-color: #7f83ff; }
     .toggle { min-height: 38px; padding: 8px 12px; border-radius: 12px; border: 3px solid rgba(69,44,109,.7); background: rgba(255,255,255,.7); font-weight: 1000; box-shadow: 0 3px 0 rgba(70,49,117,.2); }
 
@@ -771,7 +770,6 @@
               </div>
               <h3 id="music-title" class="panel-title">COZY PIXEL RADIO</h3>
               <div class="radio-panel">
-                <div class="radio-art">📻</div>
                 <div>
                   <p id="music-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:8px;">soft retro bleeps made in your browser. no autoplay, no surprise sound.</p>
                   <div class="button-row" style="margin-top:0;">
@@ -803,16 +801,11 @@
                   </div>
                   <div class="send-row">
                     <button onclick="handleLetterSubmission()" class="game-button primary-button" type="button">
-                      <span style="width:14px;height:14px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-11-4l2.03 2.71L16 11l4 5H8l3-4zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2z"/></svg></span>
                       <span id="btn-submit-text">generate png letter</span>
                     </button>
                     <button onclick="clearLetter()" class="game-button" type="button" id="btn-clear">clear</button>
                   </div>
                 </div>
-                <aside class="rocket-card" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a15.3 15.3 0 0 1 4 9.5c0 3.7-1.3 6.4-4 8.5-2.7-2.1-4-4.8-4-8.5a15.3 15.3 0 0 1 4-9.5zM4 12c0-2 .5-3.8 1.4-5.4A17.2 17.2 0 0 0 2 12c0 4.3 2.5 8 6.1 9.7-.7-2.1-.7-4.3-.7-6.7s0-2.3-.4-3zm14.6-5.4c.9 1.6 1.4 3.4 1.4 5.4s0 1-.4 3c-.4 2.4-.4 4.6-1.1 6.7 3.6-1.7 6.1-5.4 6.1-9.7a17.2 17.2 0 0 0-3.4-5.4z"/></svg>
-                  <p id="rocket-copy">ready to launch your letter across the galaxy.</p>
-                </aside>
               </div>
             </section>
 
@@ -823,7 +816,7 @@
               </div>
               <h3 id="patreon-title" class="panel-title">SUPPORT AWARU</h3>
               <p id="patreon-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:10px;">help fuel more cozy korea adventures, vlogs, music, and dream projects.</p>
-              <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button" style="min-height:44px;">
+              <a href="#" id="patreon-link" target="_blank" rel="noopener" class="cute-button pink-button" style="min-height:38px;">
                 <span style="width:16px;height:16px;display:inline-block;"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span>
                 <span id="btn-patreon">support on patreon</span>
               </a>
@@ -837,7 +830,6 @@
               <h3 id="secret-title" class="panel-title">SECRET PLANET</h3>
               <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:10px;">awaru's dream is still loading, but every brave day adds +1 hope.</p>
               <div class="quest-card">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-5-1a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm8-1a1 1 0 1 1-1-1 1 1 0 0 1 1 1zm-4 6a4 4 0 0 1-3.44-2h6.88A4 4 0 0 1 12 17z"/></svg>
                 <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
               </div>
             </section>
@@ -849,7 +841,7 @@
 
   <div class="sound-dock" aria-label="Sound controls">
     <button id="back-to-planet" class="dock-button planet-back-btn hidden-section" type="button" onclick="returnToPlanetSelection()">◀ planet</button>
-    <button id="sound-toggle" class="dock-button" type="button">🔈 sound off</button>
+    <button id="sound-toggle" class="dock-button" type="button">🔊 sound on</button>
     <button id="motion-toggle" class="dock-button" type="button">✨ motion on</button>
   </div>
 
@@ -893,7 +885,6 @@
   <script>
     "use strict";
 
-    // 🌐 CLOUD CONFIGURATION SPACE: Connected via raw export link!
     const CSV_SOURCE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRU8RsjRLhsjkzpXPWgtxvKSEut1PPeRDugKok0sKGJekCySMp4VdCh7g-8Cpcwij5CFhRQJJKcK5nq/pub?output=csv";
 
     const state = {
@@ -901,7 +892,7 @@
       storyIndex: 0,
       xp: 14,
       level: 1,
-      soundEnabled: false,
+      soundEnabled: true,
       audioStarted: false,
       musicPlaying: false,
       muted: false,
@@ -1697,7 +1688,7 @@
       document.addEventListener("mousemove", event => {
         const x = (event.clientX / window.innerWidth - .5) * 2;
         const y = (event.clientY / window.innerHeight - .5) * 2;
-        $("#app-shell").style.transform = `scale(0.7) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
+        $("#app-shell").style.transform = `scale(0.75) rotateY(${x * 1.2}deg) rotateX(${-y * 1.2}deg)`;
         $$('[data-depth]').forEach(el => {
           const depth = Number(el.dataset.depth || 0);
           el.style.marginLeft = `${x * depth * 80}px`;
