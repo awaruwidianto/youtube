@@ -1169,6 +1169,112 @@
       .hub-main-content .panel-section.active { max-height: 2200px !important; }
     }
 
+  
+
+    /* === AWARU UNIVERSE V2 polish: premium pixel planets, secret login, mystery silhouette, larger screenshot card === */
+    .launch-card { width: min(760px, 100%); }
+    #success-state .subtitle { font-size: 15px; line-height: 1.45; }
+    #preview-letter-img {
+      width: min(100%, 620px) !important;
+      max-width: 100% !important;
+      max-height: min(76vh, 720px) !important;
+      height: auto !important;
+      image-rendering: auto;
+      background: #fff;
+    }
+    .hub-workspace .hub-planet .orb, .choice-orb {
+      border-color: rgba(255,255,255,.9) !important;
+      box-shadow:
+        inset -10px -12px 0 rgba(80,49,143,.10),
+        inset 8px 8px 0 rgba(255,255,255,.42),
+        0 4px 0 rgba(255,255,255,.66),
+        0 0 18px rgba(255,255,255,.84),
+        0 12px 24px rgba(123,92,255,.18) !important;
+    }
+    .hub-workspace .hub-planet .orb::after, .choice-orb::after {
+      content: "";
+      position: absolute;
+      width: 26%;
+      height: 26%;
+      left: 18%;
+      top: 16%;
+      border-radius: 50%;
+      background: rgba(255,255,255,.72);
+      filter: blur(.5px);
+      pointer-events: none;
+    }
+    .hub-workspace .hub-planet:hover .orb {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow:
+        inset -10px -12px 0 rgba(80,49,143,.08),
+        inset 8px 8px 0 rgba(255,255,255,.48),
+        0 5px 0 rgba(255,255,255,.76),
+        0 0 30px rgba(255,255,255,.96),
+        0 0 36px rgba(142,231,255,.54) !important;
+    }
+    .hub-workspace .hub-planet .orb svg { filter: drop-shadow(0 1px 0 rgba(75,57,112,.35)); }
+    .achievement-badge {
+      border-color: rgba(255,255,255,.66) !important;
+      background: rgba(255,255,255,.64) !important;
+      box-shadow: 0 2px 0 rgba(255,255,255,.55), 0 0 12px rgba(255,255,255,.44) !important;
+    }
+    .achievement-badge.unlocked {
+      box-shadow: 0 4px 0 rgba(255,255,255,.62), 0 0 22px rgba(255,229,143,.82), 0 8px 18px rgba(123,92,255,.16) !important;
+    }
+    .toast.achievement-toast {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,247,191,.95), rgba(255,210,233,.92));
+      border-color: rgba(255,255,255,.78);
+      box-shadow: 0 5px 0 rgba(255,255,255,.54), 0 0 22px rgba(255,229,143,.55), var(--pixel-shadow);
+      animation: achievementSlide .42s cubic-bezier(.18,.89,.32,1.28) both;
+    }
+    @keyframes achievementSlide { from{opacity:0; transform:translateX(-18px) translateY(10px) scale(.96)} to{opacity:1; transform:translateX(0) translateY(0) scale(1)} }
+    .orb-mystery { background: radial-gradient(circle at 35% 26%, #fff, #d7c2ff 31%, #8ee7ff 64%, #7c5cff); color: #fff; }
+    .planet-mystery.is-empty { opacity: .5; filter: grayscale(.2); cursor: not-allowed; }
+    .planet-mystery.is-empty .orb {
+      background: radial-gradient(circle at 35% 26%, rgba(255,255,255,.96), #c8bedc 36%, #9aa0c8 72%, #6b638f) !important;
+      box-shadow: inset -10px -12px 0 rgba(40,31,72,.12), 0 0 12px rgba(255,255,255,.45) !important;
+    }
+    .mystery-card, .secret-login-card {
+      border-radius: 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(215,194,255,.65), rgba(142,231,255,.48));
+      border: 3px solid rgba(255,255,255,.58);
+      box-shadow: 0 8px 24px rgba(70,49,117,.10), inset 0 0 0 2px rgba(255,255,255,.38);
+      text-align: center;
+    }
+    .mystery-card strong { display:block; font-family: var(--font-title); color:#5844c9; font-size: clamp(22px, 5vw, 34px); margin-bottom: 10px; }
+    .mystery-button { margin-top: 8px; }
+    .secret-terminal-prompt {
+      text-align:left;
+      font-family: var(--font-title);
+      color:#ffe58f;
+      background: linear-gradient(180deg, rgba(82,65,136,.92), rgba(51,40,91,.92));
+      border: 4px solid rgba(40,29,76,.86);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.12), 0 0 28px rgba(142,231,255,.20);
+    }
+    .secret-terminal-prompt p { margin: 0 0 10px; color: #fff7fb; font-weight: 1000; }
+    .secret-input-row { display:grid; grid-template-columns: 1fr auto; gap: 8px; align-items:center; }
+    .secret-input-row .field { min-height: 42px; }
+    #secret-unlocked-content.hidden-section { display: none !important; }
+    .terminal-particle {
+      position: fixed;
+      z-index: 90;
+      width: 8px;
+      height: 8px;
+      border-radius: 3px;
+      background: rgba(255,255,255,.88);
+      pointer-events: none;
+      animation: particleBurst .72s ease-out forwards;
+    }
+    @keyframes particleBurst { to { opacity:0; transform: translate(var(--tx), var(--ty)) scale(.45) rotate(90deg); } }
+    @media (max-width: 760px) {
+      #preview-letter-img { width: min(100%, 560px) !important; max-height: min(72vh, 650px) !important; }
+      .secret-input-row { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
@@ -1314,6 +1420,7 @@
           <span class="achievement-badge" data-achievement="letter" aria-label="letter badge">💌</span>
           <span class="achievement-badge" data-achievement="patreon" aria-label="support badge">💗</span>
           <span class="achievement-badge" data-achievement="secret" aria-label="secret badge">⭐</span>
+          <span class="achievement-badge" data-achievement="mystery" aria-label="mystery badge">❔</span>
           <span class="achievement-badge" data-achievement="explorer" aria-label="explorer badge">🏆</span>
         </div>
         
@@ -1357,6 +1464,12 @@
                 </span>
                 <strong id="planet-secret-label">secret</strong><small id="planet-secret-small">locked</small>
               </button>
+              <button class="hub-planet planet-mystery is-empty" id="mystery-planet" type="button" data-panel="mystery-panel" aria-label="Open mystery planet">
+                <span class="orb orb-mystery">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2L12 2zm0 5.2l-.9 2.5-2.5.8 2.5.8.9 2.5.9-2.5 2.5-.8-2.5-.8-.9-2.5z"/></svg>
+                </span>
+                <strong id="planet-mystery-label">mystery</strong><small id="planet-mystery-small">coming soon</small>
+              </button>
             </div>
           </aside>
 
@@ -1365,7 +1478,7 @@
             <section id="terminal-intro-panel" class="panel-section pixel-window content-panel active terminal-intro-card" aria-labelledby="terminal-intro-title">
               <div class="window-label">🪐 <span id="terminal-intro-label">terminal hub</span></div>
               <h3 id="terminal-intro-title" class="panel-title">CHOOSE A TERMINAL</h3>
-              <p id="terminal-intro-copy" class="terminal-intro-copy">tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.</p>
+              <p id="terminal-intro-copy" class="terminal-intro-copy">tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.</p>
             </section>
 
             <section id="youtube-panel" class="panel-section pixel-window content-panel" aria-labelledby="heading-yt">
@@ -1475,9 +1588,32 @@
                 <span id="secret-window-label">hidden sphere</span>
               </div>
               <h3 id="secret-title" class="panel-title">SECRET PLANET</h3>
-              <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:10px;">awaru's dream is still loading, but every brave day adds +1 hope.</p>
-              <div class="quest-card">
-                <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
+              <div id="secret-login-card" class="secret-login-card">
+                <div class="secret-terminal-prompt">
+                  <p id="secret-question-text">what is awaru's instagram ID?</p>
+                  <div class="secret-input-row">
+                    <input type="text" id="secret-answer" class="field" placeholder="@awaru.pdf">
+                    <button type="button" id="secret-submit-btn" class="game-button primary-button" onclick="submitSecretAnswer()">unlock</button>
+                  </div>
+                </div>
+              </div>
+              <div id="secret-unlocked-content" class="hidden-section">
+                <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:10px;">awaru's dream is still loading, but every brave day adds +1 hope.</p>
+                <div class="quest-card">
+                  <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
+                </div>
+              </div>
+            </section>
+
+            <section id="mystery-panel" class="panel-section pixel-window content-panel" aria-labelledby="mystery-title">
+              <div class="window-label">🧩 <span id="mystery-window-label">mystery terminal</span></div>
+              <h3 id="mystery-title" class="panel-title">MYSTERY</h3>
+              <div class="mystery-card">
+                <strong id="mystery-project-title">coming soon</strong>
+                <p id="mystery-copy" class="subtitle" style="margin-bottom:10px;">a hidden project portal will appear here when awaru is ready.</p>
+                <a href="#" id="mystery-link" target="_blank" rel="noopener" class="cute-button primary-button mystery-button">
+                  <span id="mystery-button-text">discover mystery</span>
+                </a>
               </div>
             </section>
           </main>
@@ -1513,12 +1649,11 @@
         <p class="subtitle" id="success-copy">please screen capture the layout below and send it to awaru by dm!</p>
         
         <div style="text-align: center; margin: 14px 0; overflow: hidden;">
-          <img id="preview-letter-img" src="" alt="Letter Preview" style="max-width: 100%; max-height: 290px; border-radius: 14px; border: 3px solid rgba(69,44,109,.82); box-shadow: var(--pixel-shadow);">
+          <img id="preview-letter-img" src="" alt="Letter Preview" style="max-width: 100%; max-height: min(76vh, 720px); width: min(100%, 620px); height: auto; border-radius: 14px; border: 3px solid rgba(69,44,109,.82); box-shadow: var(--pixel-shadow);">
         </div>
 
         <div class="button-row" style="justify-content:center">
           <button id="open-instagram-btn" type="button" class="game-button primary-button">💌 open instagram dm</button>
-          <button id="save-pdf-btn" type="button" class="game-button pink-button" onclick="saveAsPDF()">📄 save as pdf</button>
           <button id="close-launch-btn" type="button" class="game-button">close</button>
         </div>
       </div>
@@ -1676,7 +1811,7 @@
         backPlanet: "◀ planet",
         terminalIntroLabel: "terminal hub",
         terminalIntroTitle: "CHOOSE A TERMINAL",
-        terminalIntroCopy: "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.",
+        terminalIntroCopy: "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.",
         galaxyLoaderTitle: "CONNECTING TO GALAXY...",
         galaxyLoaderCopy: "loading awaru universe ✨"
       },
@@ -1965,7 +2100,7 @@
     localization.ko.terminalIntroLabel = "터미널 허브";
     localization.en.terminalIntroTitle = "CHOOSE A TERMINAL";
     localization.ko.terminalIntroTitle = "터미널을 선택하세요";
-    localization.en.terminalIntroCopy = "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, and secret stars are waiting.";
+    localization.en.terminalIntroCopy = "tap any planet to open its cozy pop-up terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting.";
     localization.ko.terminalIntroCopy = "행성을 누르면 포근한 팝업 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 그리고 비밀 별들이 기다리고 있어요.";
     localization.en.galaxyLoaderTitle = "CONNECTING TO GALAXY...";
     localization.ko.galaxyLoaderTitle = "은하계 연결 중...";
@@ -1976,6 +2111,50 @@
 
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
+
+
+
+    // AWARU UNIVERSE V2 extra CSV-ready keys
+    Object.assign(localization.en, {
+      savePdfBtn: "",
+      successCopy: "your letter is ready! please take a clear screenshot of the big card below, then open instagram to send it to awaru.",
+      secretQuestion: "what is awaru's instagram ID?",
+      secretUnlockBtn: "unlock",
+      secretWrong: "not quite yet. hint: you can type it with or without @ ✨",
+      secretUnlockedContent: "access granted. welcome to awaru's soft secret corner.",
+      planetMysteryLabel: "mystery",
+      planetMysterySmallEmpty: "sleeping",
+      planetMysterySmallReady: "ready",
+      mysteryWindowLabel: "mystery terminal",
+      mysteryTitleHeading: "MYSTERY",
+      mysteryTitle: "",
+      mysteryLink: "",
+      mysteryCopy: "a hidden project portal will appear here when awaru is ready.",
+      mysteryButtonText: "discover mystery",
+      mysteryEmptyToast: "mystery planet is still sleeping. come back soon ✨",
+      badgeMysteryEmoji: "❔",
+      terminalIntroCopy: "tap any planet to open its cozy terminal. youtube, instagram, music, letters, patreon, secret, and mystery are waiting."
+    });
+    Object.assign(localization.ko, {
+      savePdfBtn: "",
+      successCopy: "편지가 준비되었어요! 아래 큰 카드 화면을 선명하게 캡처한 뒤 인스타그램을 열어 아와루에게 보내주세요.",
+      secretQuestion: "아와루의 인스타그램 ID는 무엇일까요?",
+      secretUnlockBtn: "열기",
+      secretWrong: "아직 아니에요. 힌트: @를 붙여도 되고 안 붙여도 돼요 ✨",
+      secretUnlockedContent: "접속 승인. 아와루의 부드러운 비밀 공간에 오신 것을 환영합니다.",
+      planetMysteryLabel: "미스터리",
+      planetMysterySmallEmpty: "준비 중",
+      planetMysterySmallReady: "열림",
+      mysteryWindowLabel: "미스터리 터미널",
+      mysteryTitleHeading: "미스터리",
+      mysteryTitle: "",
+      mysteryLink: "",
+      mysteryCopy: "아와루가 준비되면 숨겨진 프로젝트 포털이 이곳에 나타납니다.",
+      mysteryButtonText: "미스터리 발견하기",
+      mysteryEmptyToast: "미스터리 행성은 아직 잠들어 있어요. 곧 다시 와주세요 ✨",
+      badgeMysteryEmoji: "❔",
+      terminalIntroCopy: "행성을 누르면 포근한 터미널이 열립니다. 유튜브, 인스타그램, 음악, 편지, 패트리온, 비밀, 미스터리가 기다리고 있어요."
+    });
 
     function t() { return localization[state.currentLang]; }
 
@@ -2159,6 +2338,7 @@
       setText("planet-patreon-label", data.planetPatreonLabel);
       setText("planet-patreon-small", data.planetPatreonSmall);
       setText("planet-secret-label", data.planetSecretLabel);
+      setText("planet-mystery-label", data.planetMysteryLabel || "mystery");
       
       setText("yt-window-label", data.ytWindowLabel);
       setText("heading-yt", data.headingYt);
@@ -2198,6 +2378,8 @@
 
       setText("secret-window-label", data.secretWindowLabel);
       setText("secret-title", data.secretTitle);
+      setText("secret-question-text", data.secretQuestion);
+      setText("secret-submit-btn", data.secretUnlockBtn);
       setText("secret-copy", data.secretCopy);
       setText("secret-small-copy", data.secretSmall);
       setText("planet-secret-small", state.secretUnlocked ? data.planetSecretSmallUnlocked : data.planetSecretSmallLocked);
@@ -2209,7 +2391,6 @@
       setText("success-title", data.successTitle);
       setText("success-copy", data.successCopy);
       setText("open-instagram-btn", data.openInstaBtn);
-      setText("save-pdf-btn", data.savePdfBtn);
       setText("close-launch-btn", data.closeLaunchBtn);
 
       setText("congrats-window-label", data.congratsWindowLabel);
@@ -2225,6 +2406,12 @@
       setText("terminal-intro-copy", data.terminalIntroCopy);
       setText("galaxy-loader-title", data.galaxyLoaderTitle);
       setText("galaxy-loader-copy", data.galaxyLoaderCopy);
+      setText("mystery-window-label", data.mysteryWindowLabel);
+      setText("mystery-title", data.mysteryTitleHeading || data.planetMysteryLabel || "mystery");
+      setText("mystery-copy", data.mysteryCopy);
+      setText("mystery-button-text", data.mysteryButtonText);
+      updateMysteryAvailability();
+      updateSecretVisibility();
 
       $("#sender-name").placeholder = data.namePlaceholder;
       $("#sender-msg").placeholder = data.messagePlaceholder;
@@ -2316,7 +2503,8 @@
       "music-panel": "music",
       "letter-panel": "letter",
       "patreon-panel": "patreon",
-      "secret-panel": "secret"
+      "secret-panel": "secret",
+      "mystery-panel": "mystery"
     };
 
     function updateAchievementLabels() {
@@ -2328,6 +2516,7 @@
         letter: data.badgeLetterEmoji || "💌",
         patreon: data.badgePatreonEmoji || "💗",
         secret: data.badgeSecretEmoji || "⭐",
+        mystery: data.badgeMysteryEmoji || "❔",
         explorer: data.badgeExplorerEmoji || "🏆"
       };
       Object.keys(badges).forEach(key => {
@@ -2344,7 +2533,7 @@
       if (badge) badge.classList.add("unlocked");
       const icon = badge ? badge.textContent.trim() : "⭐";
       const toastTemplate = data.badgeUnlockedToast || (state.currentLang === "ko" ? "배지 획득: %s ✨" : "badge unlocked: %s ✨");
-      showToast(toastTemplate.replace("%s", icon));
+      showToast(toastTemplate.replace("%s", icon), "achievement-toast");
       playSound("success", 0.045);
     }
 
@@ -2355,13 +2544,92 @@
         "music-panel": [523, 659, 784],
         "letter-panel": [587, 740, 880],
         "patreon-panel": [494, 659, 988],
-        "secret-panel": [659, 831, 1046]
+        "secret-panel": [659, 831, 1046],
+        "mystery-panel": [740, 932, 1175]
       };
       const notes = map[id] || [520, 740];
       notes.forEach((note, index) => playTone(note, .075, "triangle", 0.035, index * .055));
     }
 
+
+
+    function normalizeInstagramId(value) {
+      return String(value || "").trim().toLowerCase().replace(/^@/, "");
+    }
+
+    function updateSecretVisibility() {
+      const login = document.getElementById("secret-login-card");
+      const content = document.getElementById("secret-unlocked-content");
+      if (login) login.classList.toggle("hidden-section", state.secretUnlocked);
+      if (content) content.classList.toggle("hidden-section", !state.secretUnlocked);
+    }
+
+    function submitSecretAnswer() {
+      const input = document.getElementById("secret-answer");
+      const answer = input ? input.value : "";
+      if (normalizeInstagramId(answer) === "awaru.pdf") {
+        unlockSecret("challenge");
+        updateSecretVisibility();
+        showToast(t().secretUnlockedContent || t().unlockedToast);
+        burstParticles(document.getElementById("secret-panel"));
+        return true;
+      }
+      showToast(t().secretWrong || "not quite yet ✨");
+      playSound("error");
+      if (input) input.focus();
+      return false;
+    }
+
+    function getMysteryLink() {
+      return String(t().mysteryLink || "").trim();
+    }
+
+    function getMysteryTitle() {
+      return String(t().mysteryTitle || "").trim();
+    }
+
+    function updateMysteryAvailability() {
+      const title = getMysteryTitle();
+      const link = getMysteryLink();
+      const isReady = Boolean(title && link);
+      const planet = document.getElementById("mystery-planet");
+      const button = document.getElementById("mystery-link");
+      if (planet) planet.classList.toggle("is-empty", !isReady);
+      setText("planet-mystery-small", isReady ? (t().planetMysterySmallReady || "ready") : (t().planetMysterySmallEmpty || "coming soon"));
+      setText("mystery-project-title", title || (t().planetMysterySmallEmpty || "coming soon"));
+      if (button) {
+        button.href = isReady ? link : "#";
+        button.style.display = isReady ? "inline-flex" : "none";
+      }
+    }
+
+    function burstParticles(target) {
+      const rect = target ? target.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 1, height: 1 };
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + Math.min(rect.height / 2, 160);
+      for (let i = 0; i < 14; i++) {
+        const dot = document.createElement("span");
+        dot.className = "terminal-particle";
+        dot.style.left = `${cx}px`;
+        dot.style.top = `${cy}px`;
+        const angle = (Math.PI * 2 * i) / 14;
+        const distance = 48 + Math.random() * 34;
+        dot.style.setProperty("--tx", `${Math.cos(angle) * distance}px`);
+        dot.style.setProperty("--ty", `${Math.sin(angle) * distance}px`);
+        document.body.appendChild(dot);
+        setTimeout(() => dot.remove(), 780);
+      }
+    }
+
     function openPanel(id) {
+      if (id === "mystery-panel") {
+        updateMysteryAvailability();
+        if (!getMysteryTitle() || !getMysteryLink()) {
+          showToast(t().mysteryEmptyToast || "mystery planet is still sleeping. come back soon ✨");
+          playSound("error");
+          return;
+        }
+      }
       // Inline terminal mode: no pop-up, no fixed positioning, no overlay.
       // This avoids mobile browser bugs where inputs/links cannot be tapped.
       playPlanetOpenSound(id);
@@ -2378,14 +2646,13 @@
         });
       }
       state.visitedPlanets.add(id);
-      awardAchievement(ACHIEVEMENT_BY_PANEL[id]);
+      if (id !== "secret-panel" || state.secretUnlocked) awardAchievement(ACHIEVEMENT_BY_PANEL[id]);
       if (state.visitedPlanets.size >= 6) awardAchievement("explorer");
+      burstParticles(panel);
       checkHubCompletion();
 
-      updateHud(id === "secret-panel" ? 100 : Math.max(state.xp, 82), id === "secret-panel" ? 3 : 2);
-      if (id === "secret-panel" && !state.secretUnlocked) {
-        unlockSecret("planet");
-      }
+      updateHud(id === "secret-panel" && state.secretUnlocked ? 100 : Math.max(state.xp, 82), id === "secret-panel" && state.secretUnlocked ? 3 : 2);
+      updateSecretVisibility();
     }
 
     function checkHubCompletion() {
@@ -2565,246 +2832,13 @@
       }
     }
 
-    function saveAsPDF() {
-      const dataUrl = document.getElementById("preview-letter-img").src;
-      if (!dataUrl) return;
-      const printWindow = window.open('', '_blank');
-      if (!printWindow) {
-        showToast("Popup blocked! Please allow popups to save PDF.");
-        return;
-      }
-      printWindow.document.write(`
-        <html>
-        <head>
-          <title>\${t().pdfTitle}</title>
-          <style>
-            @page { size: auto; margin: 0; }
-            body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }
-            img { max-width: 100%; max-height: 100vh; object-fit: contain; }
-        
-
-    /* === V3 mobile terminal fix: no overlap + keyboard-safe letter inputs === */
-    @media (max-width: 760px) {
-      html, body {
-        width: 100%;
-        min-height: 100svh;
-        overflow-x: hidden;
-      }
-
-      .galaxy-stage {
-        min-height: 100svh;
-        min-height: 100dvh;
-        display: flex !important;
-        align-items: flex-start !important;
-        justify-content: center !important;
-        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(82px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
-      }
-
-      .app-shell {
-        width: 100% !important;
-        max-width: calc(100vw - 16px) !important;
-        transform: none !important;
-        transform-origin: top center !important;
-        border-radius: 26px;
-        overflow: hidden;
-      }
-
-      .topbar {
-        position: relative;
-        z-index: 5;
-      }
-
-      .brand h1 {
-        font-size: clamp(30px, 11vw, 44px) !important;
-        line-height: 0.95;
-      }
-
-      .screen {
-        padding: 12px !important;
-      }
-
-      .hub-workspace {
-        display: block !important;
-        margin: 8px auto 0 !important;
-      }
-
-      .hub-sidebar {
-        position: relative !important;
-        top: auto !important;
-        z-index: 8;
-        margin-bottom: 12px;
-      }
-
-      .hub-workspace .hub-map {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: flex-start !important;
-        flex-wrap: wrap !important;
-        gap: 10px 8px !important;
-      }
-
-      .hub-workspace .hub-planet {
-        width: 72px !important;
-        min-height: 84px !important;
-      }
-
-      .hub-workspace .hub-planet .orb {
-        width: 52px !important;
-        height: 52px !important;
-      }
-
-      .hub-main-content {
-        position: relative;
-        z-index: 4;
-        width: 100%;
-        min-width: 0;
-      }
-
-      /* On phones, terminals stay inside the page flow instead of fixed over the title.
-         This prevents Samsung/Chrome input focus bugs and stops stacked overlap. */
-      body.terminal-modal-open {
-        overflow-y: auto !important;
-      }
-
-      body.terminal-modal-open #app-shell {
-        transform: none !important;
-      }
-
-      .terminal-modal-backdrop,
-      .terminal-modal-backdrop.active {
-        display: none !important;
-        pointer-events: none !important;
-        background: transparent !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-      }
-
-      body.terminal-modal-open .panel-section.active {
-        position: relative !important;
-        left: auto !important;
-        top: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-        transform: none !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        max-height: none !important;
-        margin: 0 auto 14px !important;
-        overflow: visible !important;
-        pointer-events: auto !important;
-        z-index: 6 !important;
-        animation: panelPop .32s cubic-bezier(.18,.89,.32,1.28) both;
-      }
-
-      body.terminal-modal-open .panel-section.active .terminal-close-btn {
-        position: absolute !important;
-        float: none !important;
-        top: 10px !important;
-        right: 10px !important;
-        z-index: 20 !important;
-      }
-
-      .content-panel {
-        padding: 12px 14px 16px !important;
-      }
-
-      .panel-title {
-        margin-top: 2px !important;
-        padding-right: 38px;
-        font-size: clamp(25px, 9vw, 38px) !important;
-        line-height: 1.05 !important;
-      }
-
-      .yt-card-info {
-        display: grid !important;
-        grid-template-columns: 1fr auto;
-        align-items: center !important;
-        gap: 10px !important;
-      }
-
-      .yt-card-meta h4,
-      .insta-handle {
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .terminal-screen {
-        overflow: visible !important;
-        padding: 14px !important;
-      }
-
-      .field {
-        font-size: 16px !important;
-        line-height: 1.35 !important;
-        -webkit-user-select: text;
-        user-select: text;
-        touch-action: auto !important;
-      }
-
-      textarea.field {
-        min-height: 132px !important;
-      }
-
-      .send-row {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px !important;
-      }
-
-      .send-row .game-button {
-        width: 100%;
-        min-width: 0 !important;
-      }
-
-      #btn-dm-awaru {
-        grid-column: 1 / -1;
-      }
-
-      .sound-dock {
-        z-index: 30;
-      }
-    }
-
-    @media (max-width: 430px) {
-      .hub-hero h2 {
-        font-size: clamp(34px, 13vw, 48px) !important;
-      }
-
-      .hub-workspace .hub-planet {
-        width: 68px !important;
-      }
-
-      .hub-workspace .hub-planet strong {
-        font-size: 11px !important;
-      }
-
-      .hub-workspace .hub-planet small {
-        font-size: 8.5px !important;
-      }
-
-      .panel-title {
-        font-size: clamp(24px, 10vw, 36px) !important;
-      }
-    }
-
-  </style>
-        </head>
-        <body>
-          <img src="\${dataUrl}" onload="setTimeout(() => { window.print(); window.close(); }, 250);">
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
-    }
-
     function openInstagramDM() {
       window.open(LINKS.instagram, "_blank");
     }
 
-    function showToast(message) {
+    function showToast(message, extraClass = "") {
       const toast = document.createElement("div");
-      toast.className = "toast";
+      toast.className = `toast ${extraClass}`.trim();
       toast.textContent = message;
       $("#toast-stack").appendChild(toast);
       setTimeout(() => { toast.style.opacity = "0"; toast.style.transform = "translateY(12px)"; }, 3200);
@@ -2820,6 +2854,7 @@
       setText("planet-secret-small", t().planetSecretSmallUnlocked);
       showToast(reason === "stay" ? t().stayToast : t().unlockedToast);
       awardAchievement("secret");
+      updateSecretVisibility();
       playSound("level");
     }
 
@@ -2962,7 +2997,6 @@
         });
       });
       document.addEventListener("keydown", handleKonami);
-      setTimeout(() => unlockSecret("stay"), 30000);
     }
 
     const konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
@@ -2987,8 +3021,8 @@
     window.skipStory = skipStory;
     window.handleLetterSubmission = handleLetterSubmission;
     window.clearLetter = clearLetter;
+    window.submitSecretAnswer = submitSecretAnswer;
     window.returnToPlanetSelection = returnToPlanetSelection;
-    window.saveAsPDF = saveAsPDF;
     window.closeTerminalModal = closeTerminalModal;
 
 
