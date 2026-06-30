@@ -675,6 +675,111 @@
     }
     @keyframes terminalModalPop { from{opacity:0; transform:translate3d(-50%, -46%, 0) scale(.98)} to{opacity:1; transform:translate3d(-50%, -50%, 0) scale(1)} }
 
+
+
+    /* === mobile stability hotfix: center layout + reliable pop-up terminals === */
+    html, body { width: 100%; min-height: 100svh; }
+    .galaxy-stage {
+      width: 100%;
+      min-height: 100svh;
+      min-height: 100dvh;
+      place-items: center;
+      align-items: center;
+      justify-items: center;
+      padding-left: max(10px, env(safe-area-inset-left));
+      padding-right: max(10px, env(safe-area-inset-right));
+      padding-top: max(10px, env(safe-area-inset-top));
+      padding-bottom: max(86px, env(safe-area-inset-bottom));
+    }
+    .app-shell {
+      width: min(100%, 1020px);
+      max-width: calc(100vw - 20px);
+      transform-origin: center center;
+    }
+    .hub-planet, .hub-planet * { pointer-events: auto; touch-action: manipulation; }
+    .hub-main-content { min-width: 0; width: 100%; }
+
+    body.terminal-modal-open .panel-section.active {
+      left: 50% !important;
+      top: 50% !important;
+      width: min(92vw, 620px) !important;
+      max-width: calc(100vw - 24px) !important;
+      max-height: min(82svh, 760px) !important;
+      max-height: min(82dvh, 760px) !important;
+      overflow-y: auto !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      transform: translate3d(-50%, -50%, 0) !important;
+      margin: 0 !important;
+    }
+    body.terminal-modal-open .panel-section.active .terminal-close-btn {
+      position: sticky;
+      float: right;
+      top: 8px;
+      right: 8px;
+      margin-left: auto;
+    }
+    body.terminal-modal-open .content-panel { padding-bottom: 18px; }
+    body.terminal-modal-open .mail-terminal { padding-bottom: 8px; }
+    body.terminal-modal-open .terminal-screen { overflow: visible; }
+
+    @media (max-width: 760px) {
+      .galaxy-stage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(94px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      }
+      .app-shell {
+        width: 100% !important;
+        max-width: calc(100vw - 16px) !important;
+        transform: none !important;
+        min-height: auto;
+      }
+      body.terminal-modal-open #app-shell { transform: none !important; }
+      .hub-workspace { margin: 10px auto 0; }
+      .hub-sidebar { position: relative; top: auto; z-index: 7; }
+      .hub-workspace .hub-map { row-gap: 12px; column-gap: 8px; }
+      .hub-workspace .hub-planet { width: 74px; min-height: 86px; z-index: 8; }
+      .hub-workspace .hub-planet .orb { width: 54px; height: 54px; }
+      .hub-workspace .hub-planet strong { font-size: 12px; }
+      .hub-workspace .hub-planet small { font-size: 9px; line-height: 1.05; }
+      .panel-title { font-size: clamp(19px, 7vw, 27px) !important; }
+      #youtube-panel.panel-section,
+      #instagram-panel.panel-section { max-width: none; }
+      .yt-card-info { align-items: flex-start; padding: 10px 12px; }
+      .yt-card-meta h4 { font-size: clamp(17px, 5.4vw, 22px); line-height: 1.1; }
+      .yt-card-meta p { font-size: 12px; line-height: 1.35; }
+      .field { font-size: 16px; }
+      textarea.field { min-height: 118px; }
+      .send-row .game-button { flex: 1 1 auto; min-width: 94px; }
+      .sound-dock { left: 8px; right: 8px; bottom: max(8px, env(safe-area-inset-bottom)); justify-content: center; transform: none !important; }
+      .dock-button { min-height: 40px; padding: 8px 10px; font-size: 12px; }
+      body.terminal-modal-open .panel-section.active {
+        top: 50% !important;
+        width: min(94vw, 620px) !important;
+        max-height: min(78svh, 720px) !important;
+        max-height: min(78dvh, 720px) !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .screen { padding: 12px; }
+      .topbar { padding: 12px 14px; gap: 10px; }
+      .brand h1 { font-size: clamp(28px, 9.8vw, 38px); }
+      .brand-badge { width: 40px; height: 40px; }
+      .hub-title-container { gap: 6px; }
+      .hub-hero h2 { font-size: clamp(31px, 13vw, 45px); }
+      .player-identity-clean { margin-bottom: 8px; }
+      .terminal-intro-card { padding: 14px 12px 18px; }
+      .terminal-intro-copy { font-size: 13px; }
+      body.terminal-modal-open .panel-section.active {
+        width: calc(100vw - 18px) !important;
+        max-height: calc(100svh - 120px) !important;
+        max-height: calc(100dvh - 120px) !important;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
@@ -2215,6 +2320,47 @@
     window.returnToPlanetSelection = returnToPlanetSelection;
     window.saveAsPDF = saveAsPDF;
     window.closeTerminalModal = closeTerminalModal;
+
+
+
+    // === mobile tap + viewport stability hotfix ===
+    function syncViewportHeight() {
+      document.documentElement.style.setProperty('--real-vh', `${window.innerHeight * 0.01}px`);
+    }
+
+    function stableOpenPanel(panelId) {
+      if (!panelId) return;
+      const target = document.getElementById(panelId);
+      if (!target) return;
+      openPanel(panelId);
+      requestAnimationFrame(() => {
+        target.scrollTop = 0;
+        if (window.visualViewport && document.body.classList.contains('terminal-modal-open')) {
+          target.style.top = '50%';
+          target.style.left = '50%';
+        }
+      });
+    }
+
+    document.addEventListener('click', function(event) {
+      const planet = event.target.closest && event.target.closest('.hub-planet[data-panel]');
+      if (!planet) return;
+      event.preventDefault();
+      event.stopPropagation();
+      stableOpenPanel(planet.dataset.panel);
+    }, true);
+
+    document.addEventListener('touchend', function(event) {
+      const planet = event.target.closest && event.target.closest('.hub-planet[data-panel]');
+      if (!planet) return;
+      event.preventDefault();
+      event.stopPropagation();
+      stableOpenPanel(planet.dataset.panel);
+    }, { passive: false, capture: true });
+
+    window.addEventListener('resize', syncViewportHeight);
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', syncViewportHeight);
+    syncViewportHeight();
 
     document.addEventListener("DOMContentLoaded", async () => {
       await loadExternalLocalization();
