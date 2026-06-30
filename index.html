@@ -1099,6 +1099,74 @@
       .yt-card-meta p { font-size: 13px !important; line-height: 1.45 !important; }
     }
 
+
+    /* === cute update pack: planet sounds + badges + smooth inline terminal transitions === */
+    .achievement-dock {
+      max-width: 720px;
+      margin: 8px auto 14px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .achievement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 2px solid rgba(86,65,121,.38);
+      background: rgba(255,255,255,.48);
+      color: rgba(95,86,132,.66);
+      font-size: 11px;
+      font-weight: 1000;
+      box-shadow: 0 3px 0 rgba(70,49,117,.12);
+      transform: scale(.96);
+      transition: transform .28s cubic-bezier(.18,.89,.32,1.28), background .28s, color .28s, box-shadow .28s, opacity .28s;
+      opacity: .72;
+      user-select: none;
+    }
+    .achievement-badge.unlocked {
+      background: linear-gradient(180deg, #fff7bf, #ffd2e9);
+      color: #4b3970;
+      border-color: rgba(69,44,109,.72);
+      box-shadow: 0 4px 0 rgba(70,49,117,.22), 0 0 18px rgba(255,229,143,.55);
+      transform: scale(1);
+      opacity: 1;
+      animation: badgePop .52s cubic-bezier(.18,.89,.32,1.28) both;
+    }
+    @keyframes badgePop {
+      0% { transform: scale(.65) rotate(-4deg); }
+      60% { transform: scale(1.1) rotate(2deg); }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    .hub-main-content .panel-section {
+      display: block !important;
+      max-height: 0 !important;
+      opacity: 0 !important;
+      overflow: hidden !important;
+      transform: translateY(10px) scale(.985) !important;
+      pointer-events: none !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      transition: max-height .48s cubic-bezier(.2,.9,.2,1), opacity .28s ease, transform .34s cubic-bezier(.18,.89,.32,1.08), margin .28s ease !important;
+      animation: none !important;
+    }
+    .hub-main-content .panel-section.active {
+      max-height: 1800px !important;
+      opacity: 1 !important;
+      overflow: visible !important;
+      transform: translateY(0) scale(1) !important;
+      pointer-events: auto !important;
+      margin-bottom: 18px !important;
+    }
+    @media (max-width: 760px) {
+      .achievement-dock { margin: 6px auto 12px; gap: 6px; }
+      .achievement-badge { font-size: 10px; padding: 5px 7px; }
+      .hub-main-content .panel-section.active { max-height: 2200px !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1236,6 +1304,16 @@
         <div class="player-identity-clean">
           <p id="identity-bio-1">4th year student at Korea University of Media Arts</p>
           <p id="identity-bio-2">chasing the ultimate dream: collaborating with SM Entertainment artists!</p>
+        </div>
+
+        <div class="achievement-dock" id="achievement-dock" aria-label="achievement badges">
+          <span class="achievement-badge" data-achievement="youtube">📺 <span data-achievement-text="youtube">youtube</span></span>
+          <span class="achievement-badge" data-achievement="instagram">📸 <span data-achievement-text="instagram">instagram</span></span>
+          <span class="achievement-badge" data-achievement="music">🎵 <span data-achievement-text="music">music</span></span>
+          <span class="achievement-badge" data-achievement="letter">💌 <span data-achievement-text="letter">letter</span></span>
+          <span class="achievement-badge" data-achievement="patreon">💗 <span data-achievement-text="patreon">support</span></span>
+          <span class="achievement-badge" data-achievement="secret">⭐ <span data-achievement-text="secret">secret</span></span>
+          <span class="achievement-badge" data-achievement="explorer">🏆 <span data-achievement-text="explorer">explorer</span></span>
         </div>
         
         <div class="hub-workspace">
@@ -1478,6 +1556,7 @@
       musicTimer: null,
       masterGain: null,
       visitedPlanets: new Set(),
+      achievements: new Set(),
       congratsTriggered: false
     };
 
@@ -2138,6 +2217,7 @@
       $("#yt-link").href = LINKS.youtube[state.currentLang];
       $("#instagram-link").href = LINKS.instagram;
       $("#patreon-link").href = LINKS.patreon;
+      updateAchievementLabels();
     }
 
     function showStoryStep() {
@@ -2215,9 +2295,53 @@
       }
     }
 
+
+    const ACHIEVEMENT_BY_PANEL = {
+      "youtube-panel": "youtube",
+      "instagram-panel": "instagram",
+      "music-panel": "music",
+      "letter-panel": "letter",
+      "patreon-panel": "patreon",
+      "secret-panel": "secret"
+    };
+
+    function updateAchievementLabels() {
+      const labels = state.currentLang === "ko"
+        ? { youtube: "유튜브", instagram: "인스타", music: "음악", letter: "편지", patreon: "후원", secret: "비밀", explorer: "탐험가" }
+        : { youtube: "youtube", instagram: "instagram", music: "music", letter: "letter", patreon: "support", secret: "secret", explorer: "explorer" };
+      Object.keys(labels).forEach(key => {
+        const el = document.querySelector(`[data-achievement-text="${key}"]`);
+        if (el) el.textContent = labels[key];
+      });
+    }
+
+    function awardAchievement(key) {
+      if (!key || state.achievements.has(key)) return;
+      state.achievements.add(key);
+      const badge = document.querySelector(`[data-achievement="${key}"]`);
+      if (badge) badge.classList.add("unlocked");
+      const label = badge ? badge.textContent.trim() : key;
+      showToast(state.currentLang === "ko" ? `배지 획득: ${label} ✨` : `badge unlocked: ${label} ✨`);
+      playSound("success", 0.045);
+    }
+
+    function playPlanetOpenSound(id) {
+      const map = {
+        "youtube-panel": [392, 523, 659],
+        "instagram-panel": [440, 554, 740],
+        "music-panel": [523, 659, 784],
+        "letter-panel": [587, 740, 880],
+        "patreon-panel": [494, 659, 988],
+        "secret-panel": [659, 831, 1046]
+      };
+      const notes = map[id] || [520, 740];
+      notes.forEach((note, index) => playTone(note, .075, "triangle", 0.035, index * .055));
+    }
+
     function openPanel(id) {
       // Inline terminal mode: no pop-up, no fixed positioning, no overlay.
       // This avoids mobile browser bugs where inputs/links cannot be tapped.
+      playPlanetOpenSound(id);
       $$(".panel-section").forEach(panel => panel.classList.remove("active"));
       $$(".hub-planet").forEach(button => button.classList.toggle("active-planet", button.dataset.panel === id));
       const panel = $("#" + id);
@@ -2231,6 +2355,8 @@
         });
       }
       state.visitedPlanets.add(id);
+      awardAchievement(ACHIEVEMENT_BY_PANEL[id]);
+      if (state.visitedPlanets.size >= 6) awardAchievement("explorer");
       checkHubCompletion();
 
       updateHud(id === "secret-panel" ? 100 : Math.max(state.xp, 82), id === "secret-panel" ? 3 : 2);
@@ -2670,6 +2796,7 @@
       $("#secret-planet").classList.add("unlocked");
       setText("planet-secret-small", t().planetSecretSmallUnlocked);
       showToast(reason === "stay" ? t().stayToast : t().unlockedToast);
+      awardAchievement("secret");
       playSound("level");
     }
 
