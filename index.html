@@ -1103,7 +1103,7 @@
     /* === cute update pack: planet sounds + badges + smooth inline terminal transitions === */
     .achievement-dock {
       max-width: 720px;
-      margin: 6px auto 10px;
+      margin: 6px auto 18px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
@@ -1164,7 +1164,7 @@
       margin-bottom: 18px !important;
     }
     @media (max-width: 760px) {
-      .achievement-dock { margin: 5px auto 10px; gap: 5px; }
+      .achievement-dock { margin: 5px auto 16px; gap: 5px; }
       .achievement-badge { width: 24px; height: 24px; font-size: 13px; }
       .hub-main-content .panel-section.active { max-height: 2200px !important; }
     }
@@ -1672,6 +1672,7 @@
         badgePatreonEmoji: "💗",
         badgeSecretEmoji: "⭐",
         badgeExplorerEmoji: "🏆",
+        badgeUnlockedToast: "badge unlocked: %s ✨",
         backPlanet: "◀ planet",
         terminalIntroLabel: "terminal hub",
         terminalIntroTitle: "CHOOSE A TERMINAL",
@@ -1780,6 +1781,7 @@
         badgePatreonEmoji: "💗",
         badgeSecretEmoji: "⭐",
         badgeExplorerEmoji: "🏆",
+        badgeUnlockedToast: "배지 획득: %s ✨",
         backPlanet: "◀ 행성",
         terminalIntroLabel: "터미널 허브",
         terminalIntroTitle: "터미널을 선택하세요",
@@ -1939,6 +1941,8 @@
     localization.ko["identityBio1"] = "\ud130\ubbf8\ub110\uc5d0\uc11c \ud658\uc601\ud569\ub2c8\ub2e4";
     localization.en["backPlanet"] = "choose planet";
     localization.ko["backPlanet"] = "\ud589\uc131 \uc120\ud0dd";
+    localization.en["badgeUnlockedToast"] = "badge unlocked: %s ✨";
+    localization.ko["badgeUnlockedToast"] = "배지 획득: %s ✨";
     localization.en["storyCharacterName"] = "AWARU";
     localization.ko["storyCharacterName"] = "\uc544\uc640\ub8e8";
     localization.en.story = ["hello traveler! scale up your curiosity. meet awaru, a pisces born in the year 2000 with an energetic ENFJ spirit.", "he's a 4th year student at Korea University of Media Arts who made a brave jump to south korea to chase his dreams.", "his ultimate quest? build a life through youtube, capture colorful moments, and create a dream collaboration with one of sm entertainment artists before turning 30! "];
@@ -2338,7 +2342,8 @@
       const badge = document.querySelector(`[data-achievement="${key}"]`);
       if (badge) badge.classList.add("unlocked");
       const icon = badge ? badge.textContent.trim() : "⭐";
-      showToast(state.currentLang === "ko" ? `배지 획득: ${icon} ✨` : `badge unlocked: ${icon} ✨`);
+      const toastTemplate = data.badgeUnlockedToast || (state.currentLang === "ko" ? "배지 획득: %s ✨" : "badge unlocked: %s ✨");
+      showToast(toastTemplate.replace("%s", icon));
       playSound("success", 0.045);
     }
 
