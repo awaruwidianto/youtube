@@ -783,6 +783,322 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
     }
+
+
+    /* === V3 mobile terminal fix: no overlap + keyboard-safe letter inputs === */
+    @media (max-width: 760px) {
+      html, body {
+        width: 100%;
+        min-height: 100svh;
+        overflow-x: hidden;
+      }
+
+      .galaxy-stage {
+        min-height: 100svh;
+        min-height: 100dvh;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(82px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
+      }
+
+      .app-shell {
+        width: 100% !important;
+        max-width: calc(100vw - 16px) !important;
+        transform: none !important;
+        transform-origin: top center !important;
+        border-radius: 26px;
+        overflow: hidden;
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 5;
+      }
+
+      .brand h1 {
+        font-size: clamp(30px, 11vw, 44px) !important;
+        line-height: 0.95;
+      }
+
+      .screen {
+        padding: 12px !important;
+      }
+
+      .hub-workspace {
+        display: block !important;
+        margin: 8px auto 0 !important;
+      }
+
+      .hub-sidebar {
+        position: relative !important;
+        top: auto !important;
+        z-index: 8;
+        margin-bottom: 12px;
+      }
+
+      .hub-workspace .hub-map {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
+        gap: 10px 8px !important;
+      }
+
+      .hub-workspace .hub-planet {
+        width: 72px !important;
+        min-height: 84px !important;
+      }
+
+      .hub-workspace .hub-planet .orb {
+        width: 52px !important;
+        height: 52px !important;
+      }
+
+      .hub-main-content {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        min-width: 0;
+      }
+
+      /* On phones, terminals stay inside the page flow instead of fixed over the title.
+         This prevents Samsung/Chrome input focus bugs and stops stacked overlap. */
+      body.terminal-modal-open {
+        overflow-y: auto !important;
+      }
+
+      body.terminal-modal-open #app-shell {
+        transform: none !important;
+      }
+
+      .terminal-modal-backdrop,
+      .terminal-modal-backdrop.active {
+        display: none !important;
+        pointer-events: none !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      body.terminal-modal-open .panel-section.active {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        margin: 0 auto 14px !important;
+        overflow: visible !important;
+        pointer-events: auto !important;
+        z-index: 6 !important;
+        animation: panelPop .32s cubic-bezier(.18,.89,.32,1.28) both;
+      }
+
+      body.terminal-modal-open .panel-section.active .terminal-close-btn {
+        position: absolute !important;
+        float: none !important;
+        top: 10px !important;
+        right: 10px !important;
+        z-index: 20 !important;
+      }
+
+      .content-panel {
+        padding: 12px 14px 16px !important;
+      }
+
+      .panel-title {
+        margin-top: 2px !important;
+        padding-right: 38px;
+        font-size: clamp(25px, 9vw, 38px) !important;
+        line-height: 1.05 !important;
+      }
+
+      .yt-card-info {
+        display: grid !important;
+        grid-template-columns: 1fr auto;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+
+      .yt-card-meta h4,
+      .insta-handle {
+        overflow-wrap: anywhere;
+        word-break: keep-all;
+      }
+
+      .terminal-screen {
+        overflow: visible !important;
+        padding: 14px !important;
+      }
+
+      .field {
+        font-size: 16px !important;
+        line-height: 1.35 !important;
+        -webkit-user-select: text;
+        user-select: text;
+        touch-action: auto !important;
+      }
+
+      textarea.field {
+        min-height: 132px !important;
+      }
+
+      .send-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px !important;
+      }
+
+      .send-row .game-button {
+        width: 100%;
+        min-width: 0 !important;
+      }
+
+      #btn-dm-awaru {
+        grid-column: 1 / -1;
+      }
+
+      .sound-dock {
+        z-index: 30;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hub-hero h2 {
+        font-size: clamp(34px, 13vw, 48px) !important;
+      }
+
+      .hub-workspace .hub-planet {
+        width: 68px !important;
+      }
+
+      .hub-workspace .hub-planet strong {
+        font-size: 11px !important;
+      }
+
+      .hub-workspace .hub-planet small {
+        font-size: 8.5px !important;
+      }
+
+      .panel-title {
+        font-size: clamp(24px, 10vw, 36px) !important;
+      }
+    }
+
+  
+
+    /* === SIMPLE INLINE TERMINAL MODE: final mobile-safe version ===
+       No popup, no fixed modal, no overlay. Panels live inside the page,
+       so inputs, buttons, and links are clickable on Samsung/iPhone/Chrome/Safari. */
+    .terminal-modal-backdrop,
+    .terminal-modal-backdrop.active {
+      display: none !important;
+      pointer-events: none !important;
+    }
+    body.terminal-modal-open { overflow-y: auto !important; }
+    .hub-main-content {
+      position: relative !important;
+      z-index: 3 !important;
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+    .panel-section.active {
+      position: relative !important;
+      display: block !important;
+      left: auto !important;
+      right: auto !important;
+      top: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 720px !important;
+      max-height: none !important;
+      margin: 0 auto 18px !important;
+      overflow: visible !important;
+      pointer-events: auto !important;
+      z-index: 4 !important;
+    }
+    .terminal-close-btn { display: none !important; }
+    .terminal-screen,
+    .field,
+    .game-button,
+    .cute-button,
+    .yt-channel-card,
+    .insta-card,
+    .hub-planet,
+    input,
+    textarea,
+    a,
+    button {
+      pointer-events: auto !important;
+      touch-action: manipulation;
+    }
+    input.field,
+    textarea.field {
+      -webkit-user-select: text !important;
+      user-select: text !important;
+      touch-action: auto !important;
+      position: relative !important;
+      z-index: 20 !important;
+    }
+    @media (max-width: 760px) {
+      .galaxy-stage {
+        display: block !important;
+        min-height: 100dvh !important;
+        padding: 8px 8px 92px !important;
+      }
+      .app-shell {
+        width: 100% !important;
+        max-width: calc(100vw - 16px) !important;
+        margin: 0 auto !important;
+        transform: none !important;
+        transform-origin: center top !important;
+      }
+      .hub-workspace {
+        display: block !important;
+        margin-top: 10px !important;
+      }
+      .hub-sidebar {
+        position: relative !important;
+        top: auto !important;
+        margin-bottom: 14px !important;
+      }
+      .hub-workspace .hub-map {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 10px 8px !important;
+      }
+      .hub-workspace .hub-planet {
+        width: 72px !important;
+        min-height: 82px !important;
+      }
+      .panel-section.active {
+        max-width: 100% !important;
+        margin-top: 8px !important;
+      }
+      .content-panel { padding: 12px 14px 16px !important; }
+      .panel-title {
+        padding-right: 0 !important;
+        font-size: clamp(24px, 8.8vw, 36px) !important;
+        line-height: 1.08 !important;
+      }
+      .terminal-screen { padding: 12px !important; }
+      .field { font-size: 16px !important; }
+      textarea.field { min-height: 130px !important; }
+      .send-row { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+      #btn-dm-awaru { grid-column: 1 / -1; }
+      .yt-card-info { display: grid !important; grid-template-columns: 1fr auto !important; }
+      .yt-card-meta h4 { font-size: clamp(21px, 7vw, 30px) !important; line-height: 1.08 !important; }
+      .yt-card-meta p { font-size: 13px !important; line-height: 1.45 !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -1883,19 +2199,11 @@
     }
 
     function ensureTerminalCloseButtons() {
-      $$(".panel-section").forEach(panel => {
-        if (panel.id === "terminal-intro-panel" || panel.querySelector(".terminal-close-btn")) return;
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "terminal-close-btn";
-        btn.setAttribute("aria-label", "close terminal");
-        btn.textContent = "×";
-        btn.addEventListener("click", () => closeTerminalModal());
-        panel.appendChild(btn);
-      });
+      // Inline terminal mode: no floating close button needed.
     }
 
     function closeTerminalModal(showIntro = true) {
+      // Inline terminal mode: keep everything in the normal page flow.
       document.body.classList.remove("terminal-modal-open");
       const backdrop = document.getElementById("terminal-modal-backdrop");
       if (backdrop) backdrop.classList.remove("active");
@@ -1908,15 +2216,20 @@
     }
 
     function openPanel(id) {
-      ensureTerminalCloseButtons();
+      // Inline terminal mode: no pop-up, no fixed positioning, no overlay.
+      // This avoids mobile browser bugs where inputs/links cannot be tapped.
       $$(".panel-section").forEach(panel => panel.classList.remove("active"));
       $$(".hub-planet").forEach(button => button.classList.toggle("active-planet", button.dataset.panel === id));
       const panel = $("#" + id);
-      if (panel) panel.classList.add("active");
-      document.body.classList.add("terminal-modal-open");
-      const backdrop = document.getElementById("terminal-modal-backdrop");
-      if (backdrop) backdrop.classList.add("active");
-      
+      if (panel) {
+        panel.classList.add("active");
+        document.body.classList.remove("terminal-modal-open");
+        const backdrop = document.getElementById("terminal-modal-backdrop");
+        if (backdrop) backdrop.classList.remove("active");
+        requestAnimationFrame(() => {
+          panel.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
       state.visitedPlanets.add(id);
       checkHubCompletion();
 
@@ -2119,7 +2432,214 @@
             @page { size: auto; margin: 0; }
             body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #fff; }
             img { max-width: 100%; max-height: 100vh; object-fit: contain; }
-          </style>
+        
+
+    /* === V3 mobile terminal fix: no overlap + keyboard-safe letter inputs === */
+    @media (max-width: 760px) {
+      html, body {
+        width: 100%;
+        min-height: 100svh;
+        overflow-x: hidden;
+      }
+
+      .galaxy-stage {
+        min-height: 100svh;
+        min-height: 100dvh;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(82px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left)) !important;
+      }
+
+      .app-shell {
+        width: 100% !important;
+        max-width: calc(100vw - 16px) !important;
+        transform: none !important;
+        transform-origin: top center !important;
+        border-radius: 26px;
+        overflow: hidden;
+      }
+
+      .topbar {
+        position: relative;
+        z-index: 5;
+      }
+
+      .brand h1 {
+        font-size: clamp(30px, 11vw, 44px) !important;
+        line-height: 0.95;
+      }
+
+      .screen {
+        padding: 12px !important;
+      }
+
+      .hub-workspace {
+        display: block !important;
+        margin: 8px auto 0 !important;
+      }
+
+      .hub-sidebar {
+        position: relative !important;
+        top: auto !important;
+        z-index: 8;
+        margin-bottom: 12px;
+      }
+
+      .hub-workspace .hub-map {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        flex-wrap: wrap !important;
+        gap: 10px 8px !important;
+      }
+
+      .hub-workspace .hub-planet {
+        width: 72px !important;
+        min-height: 84px !important;
+      }
+
+      .hub-workspace .hub-planet .orb {
+        width: 52px !important;
+        height: 52px !important;
+      }
+
+      .hub-main-content {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        min-width: 0;
+      }
+
+      /* On phones, terminals stay inside the page flow instead of fixed over the title.
+         This prevents Samsung/Chrome input focus bugs and stops stacked overlap. */
+      body.terminal-modal-open {
+        overflow-y: auto !important;
+      }
+
+      body.terminal-modal-open #app-shell {
+        transform: none !important;
+      }
+
+      .terminal-modal-backdrop,
+      .terminal-modal-backdrop.active {
+        display: none !important;
+        pointer-events: none !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+
+      body.terminal-modal-open .panel-section.active {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        margin: 0 auto 14px !important;
+        overflow: visible !important;
+        pointer-events: auto !important;
+        z-index: 6 !important;
+        animation: panelPop .32s cubic-bezier(.18,.89,.32,1.28) both;
+      }
+
+      body.terminal-modal-open .panel-section.active .terminal-close-btn {
+        position: absolute !important;
+        float: none !important;
+        top: 10px !important;
+        right: 10px !important;
+        z-index: 20 !important;
+      }
+
+      .content-panel {
+        padding: 12px 14px 16px !important;
+      }
+
+      .panel-title {
+        margin-top: 2px !important;
+        padding-right: 38px;
+        font-size: clamp(25px, 9vw, 38px) !important;
+        line-height: 1.05 !important;
+      }
+
+      .yt-card-info {
+        display: grid !important;
+        grid-template-columns: 1fr auto;
+        align-items: center !important;
+        gap: 10px !important;
+      }
+
+      .yt-card-meta h4,
+      .insta-handle {
+        overflow-wrap: anywhere;
+        word-break: keep-all;
+      }
+
+      .terminal-screen {
+        overflow: visible !important;
+        padding: 14px !important;
+      }
+
+      .field {
+        font-size: 16px !important;
+        line-height: 1.35 !important;
+        -webkit-user-select: text;
+        user-select: text;
+        touch-action: auto !important;
+      }
+
+      textarea.field {
+        min-height: 132px !important;
+      }
+
+      .send-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px !important;
+      }
+
+      .send-row .game-button {
+        width: 100%;
+        min-width: 0 !important;
+      }
+
+      #btn-dm-awaru {
+        grid-column: 1 / -1;
+      }
+
+      .sound-dock {
+        z-index: 30;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hub-hero h2 {
+        font-size: clamp(34px, 13vw, 48px) !important;
+      }
+
+      .hub-workspace .hub-planet {
+        width: 68px !important;
+      }
+
+      .hub-workspace .hub-planet strong {
+        font-size: 11px !important;
+      }
+
+      .hub-workspace .hub-planet small {
+        font-size: 8.5px !important;
+      }
+
+      .panel-title {
+        font-size: clamp(24px, 10vw, 36px) !important;
+      }
+    }
+
+  </style>
         </head>
         <body>
           <img src="\${dataUrl}" onload="setTimeout(() => { window.print(); window.close(); }, 250);">
@@ -2330,16 +2850,7 @@
 
     function stableOpenPanel(panelId) {
       if (!panelId) return;
-      const target = document.getElementById(panelId);
-      if (!target) return;
       openPanel(panelId);
-      requestAnimationFrame(() => {
-        target.scrollTop = 0;
-        if (window.visualViewport && document.body.classList.contains('terminal-modal-open')) {
-          target.style.top = '50%';
-          target.style.left = '50%';
-        }
-      });
     }
 
     document.addEventListener('click', function(event) {
