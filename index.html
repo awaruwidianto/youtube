@@ -664,7 +664,8 @@
     }
     .galaxy-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader-card { width: min(360px, 92vw); text-align: center; padding: 24px 20px; }
-    .loader-orb { width: 78px; height: 78px; margin: 0 auto 14px; border-radius: 50%; border: 4px solid rgba(86,65,121,.86); background: radial-gradient(circle at 34% 24%, #fff, #8ee7ff 36%, #ff94cf 68%, #6d5dfc); box-shadow: 0 0 35px rgba(255,255,255,.55); animation: planetFloat 2.4s ease-in-out infinite, dynamicColorShift 6s linear infinite; }
+    .loader-orb { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.70); box-shadow: 0 0 35px rgba(255,255,255,.55); animation: planetFloat 2.4s ease-in-out infinite; padding: 6px; }
+    .loader-orb .yin-yang-logo { width: 100%; height: 100%; }
     .loader-title { margin: 0; font-family: var(--font-title); color: #fff; font-size: 30px; text-shadow: 2px 2px 0 rgba(61,49,95,.7); }
     .loader-copy { margin: 6px 0 0; color: #fff9f1; font-weight: 1000; }
 
@@ -1259,6 +1260,61 @@
     .secret-input-row { display:grid; grid-template-columns: 1fr auto; gap: 8px; align-items:center; }
     .secret-input-row .field { min-height: 42px; }
     #secret-unlocked-content.hidden-section { display: none !important; }
+    .secret-game-card {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.62);
+      border: 3px solid rgba(86,65,121,.28);
+      box-shadow: 0 5px 0 rgba(86,65,121,.13);
+      text-align: center;
+    }
+    .secret-game-title {
+      margin: 0 0 8px;
+      font-family: var(--font-title);
+      color: #5844c9;
+      font-size: 18px;
+    }
+    .snake-game-wrap {
+      width: min(100%, 260px);
+      margin: 0 auto;
+    }
+    #snake-canvas {
+      display: block;
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1 / 1;
+      margin: 8px auto;
+      border-radius: 14px;
+      border: 3px solid rgba(69,44,109,.72);
+      background: linear-gradient(135deg, rgba(82,65,136,.92), rgba(51,40,91,.92));
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.12), 0 5px 0 rgba(70,49,117,.18);
+      image-rendering: pixelated;
+    }
+    .snake-status {
+      min-height: 20px;
+      margin: 6px 0 8px;
+      color: var(--ink-soft);
+      font-weight: 1000;
+      font-size: 12px;
+    }
+    .snake-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 42px);
+      gap: 6px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .snake-controls .game-button {
+      min-height: 34px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    .snake-controls .snake-up { grid-column: 2; }
+    .snake-controls .snake-left { grid-column: 1; }
+    .snake-controls .snake-down { grid-column: 2; }
+    .snake-controls .snake-right { grid-column: 3; }
     .terminal-particle {
       position: fixed;
       z-index: 90;
@@ -1275,13 +1331,37 @@
       .secret-input-row { grid-template-columns: 1fr; }
     }
 
+    /* === secret snake game mobile comfort === */
+    @media (max-width: 760px) {
+      .galaxy-loader { align-items: center; justify-items: center; }
+      .loader-card { width: min(330px, 88vw); margin: 0 auto; }
+      .loader-orb { width: 54px; height: 54px; }
+      .snake-game-wrap { width: min(100%, 230px); }
+      #snake-canvas { max-width: 220px; }
+    }
+
   </style>
 </head>
 <body>
 
   <div class="galaxy-loader" id="galaxy-loader" aria-live="polite">
     <div class="pixel-window loader-card">
-      <div class="loader-orb" aria-hidden="true"></div>
+      <div class="loader-orb" aria-hidden="true">
+        <svg class="yin-yang-logo" viewBox="0 0 64 64" role="img" aria-label="Awaru yin yang logo">
+          <defs>
+            <linearGradient id="yyLoaderGlow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8ee7ff"/>
+              <stop offset="0.52" stop-color="#ff94cf"/>
+              <stop offset="1" stop-color="#a78bfa"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="28" fill="#fff9f1" stroke="#564179" stroke-width="4"/>
+          <path d="M32 4a28 28 0 0 1 0 56c-7.7 0-14-6.3-14-14s6.3-14 14-14 14-6.3 14-14S39.7 4 32 4z" fill="url(#yyLoaderGlow)"/>
+          <circle cx="32" cy="18" r="5.5" fill="#fff9f1"/>
+          <circle cx="32" cy="46" r="5.5" fill="#6d5dfc"/>
+          <path d="M14 14h4v4h-4zM48 46h4v4h-4zM48 13h3v3h-3zM12 48h3v3h-3z" fill="#ffe58f"/>
+        </svg>
+      </div>
       <h2 class="loader-title" id="galaxy-loader-title">CONNECTING TO GALAXY...</h2>
       <p class="loader-copy" id="galaxy-loader-copy">loading awaru universe ✨</p>
     </div>
@@ -1592,7 +1672,7 @@
                 <div class="secret-terminal-prompt">
                   <p id="secret-question-text">what is awaru's instagram ID?</p>
                   <div class="secret-input-row">
-                    <input type="text" id="secret-answer" class="field" placeholder="@awaru.pdf">
+                    <input type="text" id="secret-answer" class="field" placeholder="enter answer">
                     <button type="button" id="secret-submit-btn" class="game-button primary-button" onclick="submitSecretAnswer()">unlock</button>
                   </div>
                 </div>
@@ -1601,6 +1681,20 @@
                 <p id="secret-copy" class="subtitle" style="text-align:left;margin-left:0;margin-bottom:10px;">awaru's dream is still loading, but every brave day adds +1 hope.</p>
                 <div class="quest-card">
                   <strong id="random-message">a tiny alien says: keep going, traveler.</strong><small id="secret-small-copy">you found a soft little corner of the universe.</small>
+                </div>
+                <div class="secret-game-card" aria-label="secret snake game">
+                  <h4 class="secret-game-title">SNAKE XENZIA</h4>
+                  <div class="snake-game-wrap">
+                    <canvas id="snake-canvas" width="240" height="240"></canvas>
+                    <p id="snake-status" class="snake-status">press start to play ✨</p>
+                    <button type="button" id="snake-start" class="game-button primary-button">start game</button>
+                    <div class="snake-controls" aria-label="snake controls">
+                      <button type="button" class="game-button snake-up" data-snake-dir="up">▲</button>
+                      <button type="button" class="game-button snake-left" data-snake-dir="left">◀</button>
+                      <button type="button" class="game-button snake-down" data-snake-dir="down">▼</button>
+                      <button type="button" class="game-button snake-right" data-snake-dir="right">▶</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
@@ -2553,6 +2647,140 @@
 
 
 
+    const snakeState = {
+      running: false,
+      timer: null,
+      grid: 12,
+      snake: [{ x: 5, y: 6 }, { x: 4, y: 6 }, { x: 3, y: 6 }],
+      food: { x: 8, y: 6 },
+      dir: { x: 1, y: 0 },
+      nextDir: { x: 1, y: 0 },
+      score: 0
+    };
+
+    function getSnakeCanvas() {
+      return document.getElementById("snake-canvas");
+    }
+
+    function setSnakeStatus(text) {
+      setText("snake-status", text);
+    }
+
+    function drawSnakeGame() {
+      const canvas = getSnakeCanvas();
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const size = canvas.width;
+      const cell = size / snakeState.grid;
+      ctx.clearRect(0, 0, size, size);
+      ctx.fillStyle = "rgba(255,255,255,.08)";
+      for (let i = 0; i < snakeState.grid; i++) {
+        for (let j = 0; j < snakeState.grid; j++) {
+          if ((i + j) % 2 === 0) ctx.fillRect(i * cell, j * cell, cell, cell);
+        }
+      }
+      ctx.fillStyle = "#ffe58f";
+      ctx.fillRect(snakeState.food.x * cell + 3, snakeState.food.y * cell + 3, cell - 6, cell - 6);
+      snakeState.snake.forEach((part, index) => {
+        ctx.fillStyle = index === 0 ? "#ff94cf" : "#8ee7ff";
+        ctx.fillRect(part.x * cell + 2, part.y * cell + 2, cell - 4, cell - 4);
+      });
+    }
+
+    function placeSnakeFood() {
+      let food;
+      do {
+        food = {
+          x: Math.floor(Math.random() * snakeState.grid),
+          y: Math.floor(Math.random() * snakeState.grid)
+        };
+      } while (snakeState.snake.some(part => part.x === food.x && part.y === food.y));
+      snakeState.food = food;
+    }
+
+    function resetSnakeGame() {
+      snakeState.snake = [{ x: 5, y: 6 }, { x: 4, y: 6 }, { x: 3, y: 6 }];
+      snakeState.dir = { x: 1, y: 0 };
+      snakeState.nextDir = { x: 1, y: 0 };
+      snakeState.score = 0;
+      placeSnakeFood();
+      drawSnakeGame();
+    }
+
+    function changeSnakeDirection(name) {
+      const dirs = {
+        up: { x: 0, y: -1 },
+        down: { x: 0, y: 1 },
+        left: { x: -1, y: 0 },
+        right: { x: 1, y: 0 }
+      };
+      const next = dirs[name];
+      if (!next) return;
+      if (next.x === -snakeState.dir.x && next.y === -snakeState.dir.y) return;
+      snakeState.nextDir = next;
+    }
+
+    function endSnakeGame() {
+      snakeState.running = false;
+      clearInterval(snakeState.timer);
+      setSnakeStatus(`game over! score: ${snakeState.score} · press start to retry`);
+      playSound("error");
+    }
+
+    function snakeTick() {
+      snakeState.dir = snakeState.nextDir;
+      const head = snakeState.snake[0];
+      const nextHead = {
+        x: head.x + snakeState.dir.x,
+        y: head.y + snakeState.dir.y
+      };
+      const hitWall = nextHead.x < 0 || nextHead.y < 0 || nextHead.x >= snakeState.grid || nextHead.y >= snakeState.grid;
+      const hitBody = snakeState.snake.some(part => part.x === nextHead.x && part.y === nextHead.y);
+      if (hitWall || hitBody) {
+        endSnakeGame();
+        drawSnakeGame();
+        return;
+      }
+      snakeState.snake.unshift(nextHead);
+      if (nextHead.x === snakeState.food.x && nextHead.y === snakeState.food.y) {
+        snakeState.score += 1;
+        setSnakeStatus(`score: ${snakeState.score} ✨`);
+        playSound("coin");
+        placeSnakeFood();
+      } else {
+        snakeState.snake.pop();
+      }
+      drawSnakeGame();
+    }
+
+    function startSnakeGame() {
+      resetSnakeGame();
+      snakeState.running = true;
+      setSnakeStatus("score: 0 ✨");
+      clearInterval(snakeState.timer);
+      snakeState.timer = setInterval(snakeTick, 180);
+      playSound("coin");
+    }
+
+    function bindSnakeGame() {
+      const start = document.getElementById("snake-start");
+      if (start) start.addEventListener("click", startSnakeGame);
+      $$("[data-snake-dir]").forEach(button => {
+        button.addEventListener("click", () => changeSnakeDirection(button.dataset.snakeDir));
+      });
+      document.addEventListener("keydown", event => {
+        const active = document.activeElement;
+        if (active && ["INPUT", "TEXTAREA"].includes(active.tagName)) return;
+        const keyMap = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right" };
+        const dir = keyMap[event.key] || keyMap[event.key.toLowerCase && event.key.toLowerCase()];
+        if (dir && document.getElementById("secret-panel")?.classList.contains("active")) {
+          event.preventDefault();
+          changeSnakeDirection(dir);
+        }
+      });
+      drawSnakeGame();
+    }
+
     function normalizeInstagramId(value) {
       return String(value || "").trim().toLowerCase().replace(/^@/, "");
     }
@@ -2996,6 +3224,7 @@
           el.style.marginTop = `\${y * depth * 80}px`;
         });
       });
+      bindSnakeGame();
       document.addEventListener("keydown", handleKonami);
     }
 
